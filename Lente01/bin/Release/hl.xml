@@ -1,0 +1,2665 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Lente01</name>
+    </assembly>
+    <members>
+        <member name="F:Lente01.FormTrasfo.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:Lente01.FormTrasfo.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:Lente01.FormTrasfo.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="T:Fred68.Tools.Matematica.Tratto">
+            <summary> Classe base per segmenti di linea (Line2D, Arc2D ecc....)
+            Eredita interfaccia ITratto, ma la soddisfa con proprieta` astratte (da implementare nella classe derivata)
+            La classe e` astratta (non puo` essere istanziata)
+            </summary>
+        </member>
+        <member name="T:Fred68.Tools.Matematica.ITratto">
+            <summary> Interfaccia pe tutte le classi Tratto o derivate ad essa </summary>
+        </member>
+        <member name="P:Fred68.Tools.Matematica.ITratto.pStart">
+            <summary>
+            Proprieta` che restituisce il primo punto
+            </summary>
+        </member>
+        <member name="P:Fred68.Tools.Matematica.ITratto.pEnd">
+            <summary>
+            Proprieta` che restituisce il secondo punto
+            </summary>
+        </member>
+        <member name="P:Fred68.Tools.Matematica.ITratto.P12">
+            <summary>
+            Proprieta` che restituisce un array con i due punti
+            </summary>
+        </member>
+        <member name="T:Fred68.Tools.Utilita.IValid">
+            <summary> Interfaccia per classi i cui dati devono esser verificati </summary>
+        </member>
+        <member name="F:Fred68.Tools.Matematica.Tratto.tipo">
+            <summary>
+            Tipo del dato contenuto nell'oggetto derivato
+            </summary>
+        </member>
+        <member name="M:Fred68.Tools.Matematica.Tratto.#ctor">
+            <summary>
+            Costruttore (inizializza a null il tipo)
+            </summary>
+        </member>
+        <member name="M:Fred68.Tools.Matematica.Tratto.#ctor(System.Type)">
+            <summary>
+            Costruttore protetto, chiamato dal costruttore della classe derivata
+            </summary>
+            <param name="t">Tipo di dato (passato come parametro dal costruttore della classe derivata)</param>
+        </member>
+        <member name="M:Fred68.Tools.Matematica.Tratto.Validate">
+            <summary>
+            Funzione astratta
+            </summary>
+        </member>
+        <member name="M:Fred68.Tools.Matematica.Tratto.Belongs(Fred68.Tools.Matematica.Point2D,System.Boolean)">
+            <summary>
+            Funzione astratta
+            </summary>
+        </member>
+        <member name="M:Fred68.Tools.Matematica.Tratto.Plot(System.Drawing.Graphics,Fred68.Tools.Grafica.Finestra,System.Drawing.Pen)">
+            <summary>
+            Funzione astratta
+            </summary>
+        </member>
+        <member name="M:Fred68.Tools.Matematica.Tratto.Display(Fred68.Tools.Grafica.DisplayList,System.Int32)">
+            <summary>
+            Funzione astratta
+            </summary>
+        </member>
+        <member name="P:Fred68.Tools.Matematica.Tratto.pStart">
+            <summary>
+            Proprieta` astratta
+            </summary>
+        </member>
+        <member name="P:Fred68.Tools.Matematica.Tratto.pEnd">
+            <summary>
+            Proprieta` astratta
+            </summary>
+        </member>
+        <member name="P:Fred68.Tools.Matematica.Tratto.IsValid">
+            <summary>
+            Proprieta` astratta
+            </summary>
+        </member>
+        <member name="P:Fred68.Tools.Matematica.Tratto.P12">
+            <summary>
+            Proprieta` astratta
+            </summary>
+        </member>
+        <member name="T:Fred68.Tools.Grafica.DisplayListElement">
+            <summary> Elemento della display list </summary>
+        </member>
+        <member name="M:Fred68.Tools.Grafica.DisplayListElement.#ctor(Fred68.Tools.Matematica.Tratto,System.Int32)">
+            <summary>
+            Costruttore
+            </summary>
+            <param name="tr">Tratto</param>
+            <param name="pen">Indice della penna</param>
+        </member>
+        <member name="M:Fred68.Tools.Grafica.DisplayListElement.Plot(System.Drawing.Graphics,Fred68.Tools.Grafica.Finestra,System.Drawing.Pen[])">
+            <summary>
+            Plot
+            </summary>
+            <param name="dc"></param>
+            <param name="fin"></param>
+            <param name="penne"></param>
+        </member>
+        <member name="T:Fred68.Tools.Grafica.DisplayList">
+            <summary> Display List </summary>
+        </member>
+        <member name="F:Fred68.Tools.Grafica.DisplayList.dl">
+            <summary>
+            Lista degli elementi
+            </summary>
+        </member>
+        <member name="M:Fred68.Tools.Grafica.DisplayList.#ctor">
+            <summary>
+            Costruttore
+            </summary>
+        </member>
+        <member name="M:Fred68.Tools.Grafica.DisplayList.Clear">
+            <summary>
+            Svuota
+            </summary>
+        </member>
+        <member name="M:Fred68.Tools.Grafica.DisplayList.Add(Fred68.Tools.Grafica.DisplayListElement)">
+            <summary>
+            Aggiunge un elemento
+            </summary>
+            <param name="dle"></param>
+        </member>
+        <member name="M:Fred68.Tools.Grafica.DisplayList.Plot(System.Drawing.Graphics,Fred68.Tools.Grafica.Finestra,System.Drawing.Pen[])">
+            <summary>
+            Plot
+            </summary>
+            <param name="dc"></param>
+            <param name="fin"></param>
+            <param name="penne"></param>
+        </member>
+        <member name="T:Fred68.Tools.Matematica.Matrix">
+            <summary> Matrix with double data and operations only </summary>
+        </member>
+        <member name="T:Fred68.Tools.Matematica.MatrixBase`1">
+            <summary>
+            MatrixBase classe base per le matrici
+            </summary>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="M:Fred68.Tools.Matematica.MatrixBase`1.#ctor">
+            <summary>
+            Costruttore
+            </summary>
+        </member>
+        <member name="M:Fred68.Tools.Matematica.MatrixBase`1.#ctor(Fred68.Tools.Matematica.MatrixInfo)">
+            <summary>
+            Costruttore
+            </summary>
+            <param name="matrixinfo"></param>
+        </member>
+        <member name="M:Fred68.Tools.Matematica.MatrixBase`1.#ctor(System.Int32,System.Int32)">
+            <summary>
+            Costruttore
+            </summary>
+            <param name="rows"></param>
+            <param name="cols"></param>
+        </member>
+        <member name="M:Fred68.Tools.Matematica.MatrixBase`1.#ctor(Fred68.Tools.Matematica.MatrixBase{`0},System.Boolean)">
+            <summary>
+            Costruttore
+            (da migliorare, T : IClonable)
+            </summary>
+            <param name="m">Matrice di partenza</param>
+            <param name="copy">Ricopia i dati se true</param>
+        </member>
+        <member name="M:Fred68.Tools.Matematica.MatrixBase`1.#ctor(System.Int32,System.Int32,`0)">
+            <summary>
+            Costruttore
+            </summary>
+            <param name="rows">Righe</param>
+            <param name="cols">Colonne</param>
+            <param name="val">Dato: copia solo il riferimento, non lo clona</param>
+        </member>
+        <member name="M:Fred68.Tools.Matematica.MatrixBase`1.CheckIndex(System.Int32,System.Int32)">
+            <summary>
+            Verifica se indici corretti
+            </summary>
+            <param name="r"></param>
+            <param name="c"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Fred68.Tools.Matematica.MatrixBase`1.Get(System.Int32,System.Int32,`0)">
+            <summary>
+            Legge il valore
+            </summary>
+            <param name="r"></param>
+            <param name="c"></param>
+            <param name="d"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Fred68.Tools.Matematica.MatrixBase`1.Get(System.Int32,System.Int32)">
+            <summary>
+            Legge il valore
+            </summary>
+            <param name="r"></param>
+            <param name="c"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Fred68.Tools.Matematica.MatrixBase`1.Set(System.Int32,System.Int32,`0)">
+            <summary>
+            Imposta una cella
+            </summary>
+            <param name="r">Riga</param>
+            <param name="c">Colonna</param>
+            <param name="d">Valore</param>
+            <returns></returns>
+        </member>
+        <member name="M:Fred68.Tools.Matematica.MatrixBase`1.Dim(System.Int32,System.Int32,System.Boolean)">
+            <summary>
+            Ridimensiona la matrice
+            </summary>
+            <param name="rows"></param>
+            <param name="cols"></param>
+            <param name="keep">True per mantenere i dati</param>
+            <returns></returns>
+        </member>
+        <member name="M:Fred68.Tools.Matematica.MatrixBase`1.Dim(System.Int32,System.Int32)">
+            <summary>
+            Varia le dimensioni mantenendo il contenuto
+            </summary>
+            <param name="rows"></param>
+            <param name="cols"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Fred68.Tools.Matematica.MatrixBase`1.Clear">
+            <summary>
+            Azzera la matrice
+            Non chiama il gc
+            </summary>
+        </member>
+        <member name="M:Fred68.Tools.Matematica.MatrixBase`1.RemRow(System.Int32)">
+            <summary>
+            Elimina riga
+            </summary>
+            <param name="irow"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Fred68.Tools.Matematica.MatrixBase`1.RemCol(System.Int32)">
+            <summary>
+            Elimina colonna
+            </summary>
+            <param name="icol"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Fred68.Tools.Matematica.MatrixBase`1.RemRowCol(System.Int32,System.Int32)">
+            <summary>
+            Elimina riga e colonna
+            DA SCRIVERE
+            </summary>
+            <param name="irow"></param>
+            <param name="icol"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Fred68.Tools.Matematica.MatrixBase`1.GetRow(System.Int32)">
+            <summary>
+            Restituisce una riga
+            </summary>
+            <param name="irow"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Fred68.Tools.Matematica.MatrixBase`1.GetCol(System.Int32)">
+            <summary>
+            Restituisce una colonna
+            </summary>
+            <param name="icol"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Fred68.Tools.Matematica.MatrixBase`1.op_LogicalNot(Fred68.Tools.Matematica.MatrixBase{`0})">
+            <summary>
+            Trasposta
+            </summary>
+            <param name="m"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Fred68.Tools.Matematica.MatrixBase`1.Transpose">
+            <summary>
+            Trapone la matrice (DA VERIFICARE)
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Fred68.Tools.Matematica.MatrixBase`1.ToString">
+            <summary>
+            ToString()
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Fred68.Tools.Matematica.MatrixBase`1.ToString(System.String,System.IFormatProvider)">
+            <summary>
+            ToString()
+            </summary>
+            <param name="format"></param>
+            <param name="formatProvider"></param>
+            <returns></returns>
+        </member>
+        <member name="P:Fred68.Tools.Matematica.MatrixBase`1.Row">
+            <summary>
+            Numero di righe
+            </summary>
+        </member>
+        <member name="P:Fred68.Tools.Matematica.MatrixBase`1.Col">
+            <summary>
+            Numero di colonne
+            </summary>
+        </member>
+        <member name="P:Fred68.Tools.Matematica.MatrixBase`1.MatrixInfo">
+            <summary>
+            Informazione se errore nell'ultima operazione
+            </summary>
+        </member>
+        <member name="M:Fred68.Tools.Matematica.Matrix.#ctor">
+            <summary>
+            Costruttore
+            </summary>
+        </member>
+        <member name="M:Fred68.Tools.Matematica.Matrix.#ctor(Fred68.Tools.Matematica.MatrixInfo)">
+            <summary>
+            Costruttore
+            </summary>
+            <param name="matrixinfo"></param>
+        </member>
+        <member name="M:Fred68.Tools.Matematica.Matrix.#ctor(System.Int32,System.Int32)">
+            <summary>
+            Costruttore
+            </summary>
+            <param name="rows"></param>
+            <param name="cols"></param>
+        </member>
+        <member name="M:Fred68.Tools.Matematica.Matrix.#ctor(Fred68.Tools.Matematica.Matrix,System.Boolean)">
+            <summary>
+            Costruttore, copia da matrice esistente
+            </summary>
+            <param name="m">Matrice</param>
+            <param name="copy">true, copia i valori</param>
+        </member>
+        <member name="M:Fred68.Tools.Matematica.Matrix.#ctor(System.Int32,System.Int32,System.Double)">
+            <summary>
+            Costruttore, inizializza a val
+            </summary>
+            <param name="rows"></param>
+            <param name="cols"></param>
+            <param name="val"></param>
+        </member>
+        <member name="M:Fred68.Tools.Matematica.Matrix.op_LogicalNot(Fred68.Tools.Matematica.Matrix)">
+            <summary>
+            Operatore trasposta !A
+            </summary>
+            <param name="m"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Fred68.Tools.Matematica.Matrix.op_Addition(Fred68.Tools.Matematica.Matrix,Fred68.Tools.Matematica.Matrix)">
+            <summary>
+            Somma A+B
+            </summary>
+            <param name="sx"></param>
+            <param name="dx"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Fred68.Tools.Matematica.Matrix.op_Subtraction(Fred68.Tools.Matematica.Matrix,Fred68.Tools.Matematica.Matrix)">
+            <summary>
+            Differenza A-B
+            </summary>
+            <param name="sx"></param>
+            <param name="dx"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Fred68.Tools.Matematica.Matrix.op_Multiply(Fred68.Tools.Matematica.Matrix,Fred68.Tools.Matematica.Matrix)">
+            <summary>
+            Prodotto di matrici A*B
+            </summary>
+            <param name="sx"></param>
+            <param name="dx"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Fred68.Tools.Matematica.Matrix.op_Multiply(Fred68.Tools.Matematica.Matrix,System.Double)">
+            <summary>
+            Matrice per numero A*n
+            </summary>
+            <param name="sx"></param>
+            <param name="dx"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Fred68.Tools.Matematica.Matrix.op_Multiply(System.Double,Fred68.Tools.Matematica.Matrix)">
+            <summary>
+            Numero per matrice n*M
+            </summary>
+            <param name="sx"></param>
+            <param name="dx"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Fred68.Tools.Matematica.Matrix.op_Division(Fred68.Tools.Matematica.Matrix,System.Double)">
+            <summary>
+            Divisione matrice per numero M/n
+            </summary>
+            <param name="sx"></param>
+            <param name="dx"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Fred68.Tools.Matematica.Matrix.Id(System.Int32)">
+            <summary>
+            Matrice identita`
+            </summary>
+            <param name="n"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Fred68.Tools.Matematica.Matrix.Upper(System.Int32)">
+            <summary>
+            Triangolare inferiore
+            </summary>
+            <param name="n"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Fred68.Tools.Matematica.Matrix.Lower(System.Int32)">
+            <summary>
+            Triangolare inferiore 
+            </summary>
+            <param name="n"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Fred68.Tools.Matematica.Matrix.Ones(System.Int32,System.Int32)">
+            <summary>
+            Matrice di uno
+            </summary>
+            <param name="rows"></param>
+            <param name="cols"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Fred68.Tools.Matematica.Matrix.Zeros(System.Int32,System.Int32)">
+            <summary>
+            Matrice di zero
+            </summary>
+            <param name="rows"></param>
+            <param name="cols"></param>
+            <returns></returns>
+        </member>
+        <member name="P:Fred68.Tools.Matematica.Matrix.One">
+            <summary>
+            Valore Uno
+            </summary>
+        </member>
+        <member name="P:Fred68.Tools.Matematica.Matrix.Zero">
+            <summary>
+            Valore Zero
+            </summary>
+        </member>
+        <member name="P:Fred68.Tools.Matematica.Matrix.Epsilon">
+            <summary>
+            Valore Epsilon
+            </summary>
+        </member>
+        <member name="T:Fred68.Tools.Matematica.Intersection">
+            <summary> Intersezione. Classe semplice di appoggio </summary>
+        </member>
+        <member name="F:Fred68.Tools.Matematica.Intersection.p">
+            <summary>
+            Punto di intersezione
+            </summary>
+        </member>
+        <member name="F:Fred68.Tools.Matematica.Intersection.t1">
+            <summary>
+            Parametro della prima curva
+            </summary>
+        </member>
+        <member name="F:Fred68.Tools.Matematica.Intersection.t2">
+            <summary>
+            Parametro della seconda curva
+            </summary>
+        </member>
+        <member name="F:Fred68.Tools.Matematica.Intersection.tg1">
+            <summary>
+            true se tangente (intersezione doppia) con il primo tratto
+            </summary>
+        </member>
+        <member name="F:Fred68.Tools.Matematica.Intersection.tg2">
+            <summary>
+            true se tangente (intersezione doppia) con il secondo tratto
+            </summary>
+        </member>
+        <member name="F:Fred68.Tools.Matematica.Intersection.tr1">
+            <summary>
+            Riferimento al primo tratto
+            </summary>
+        </member>
+        <member name="F:Fred68.Tools.Matematica.Intersection.tr2">
+            <summary>
+            Riferimento al secondo tratto
+            </summary>
+        </member>
+        <member name="M:Fred68.Tools.Matematica.Intersection.#ctor(Fred68.Tools.Matematica.Point2D,System.Double,System.Double,Fred68.Tools.Matematica.Tratto,Fred68.Tools.Matematica.Tratto,System.Boolean,System.Boolean)">
+            <summary>
+            Costruttore
+            </summary>
+            <param name="pt"></param>
+            <param name="par1"></param>
+            <param name="par2"></param>
+            <param name="tratto1"></param>
+            <param name="tratto2"></param>
+            <param name="tang1"></param>
+            <param name="tang2"></param>
+        </member>
+        <member name="F:Lente01.FormLente.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:Lente01.FormLente.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:Lente01.FormLente.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="F:Lente01.FormSorgente.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:Lente01.FormSorgente.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:Lente01.FormSorgente.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="T:Fred68.Tools.Engineering.Raggio">
+            <summary> Raggio </summary>
+        </member>
+        <member name="T:Fred68.Tools.Matematica.Line2D">
+            <summary> Linea </summary>
+        </member>
+        <member name="M:Fred68.Tools.Matematica.Line2D.#ctor">
+            <summary>
+            Linea
+            </summary>
+        </member>
+        <member name="M:Fred68.Tools.Matematica.Line2D.#ctor(Fred68.Tools.Matematica.Line2D)">
+            <summary>
+            Costruttore di copia
+            </summary>
+            <param name="l">Linea</param>
+        </member>
+        <member name="M:Fred68.Tools.Matematica.Line2D.#ctor(Fred68.Tools.Matematica.Point2D,Fred68.Tools.Matematica.Point2D,System.Boolean)">
+            <summary>
+            Linea
+            </summary>
+            <param name="p1">Primo punto</param>
+            <param name="p2">Secondo punto</param>
+            <param name="bRelative">true: secondo punto sommato al primo</param>
+        </member>
+        <member name="M:Fred68.Tools.Matematica.Line2D.#ctor(System.Double,System.Double,System.Double,System.Double,System.Boolean)">
+            <summary>
+            Linea
+            </summary>
+            <param name="x1">x primo punto</param>
+            <param name="y1">y primo punto</param>
+            <param name="x2">x secondo punto</param>
+            <param name="y2">y secondo punto</param>
+            <param name="bRelative">true: secondo punto sommato al primo</param>
+        </member>
+        <member name="M:Fred68.Tools.Matematica.Line2D.#ctor(System.Double,System.Double,System.Double,System.Double,System.Boolean,System.Boolean)">
+            <summary>
+            Linea
+            </summary>
+            <param name="x1">x primo punto</param>
+            <param name="y1">y primo punto</param>
+            <param name="angolo">angolo</param>
+            <param name="length">lunghezza</param>
+            <param name="radianti">tre: angolo in radianti, false: in gradi</param>
+            <param name="bRelative">true: secondo punto sommato al primo</param>
+        </member>
+        <member name="M:Fred68.Tools.Matematica.Line2D.Validate">
+            <summary>
+            Calcola lunghezza e verifica. Aggiorna anche flag se normalizzato
+            </summary>
+        </member>
+        <member name="M:Fred68.Tools.Matematica.Line2D.Vector">
+            <summary>
+            Vettore P1 -> P2
+            </summary>
+            <returns>Il vettore</returns>
+        </member>
+        <member name="M:Fred68.Tools.Matematica.Line2D.Versor">
+            <summary>
+            Versore (modulo unitario) P1 -> P2
+            </summary>
+            <returns>Il versore</returns>
+        </member>
+        <member name="M:Fred68.Tools.Matematica.Line2D.Normalize">
+            <summary>
+            Normalizza tenendo fisso P1
+            </summary>
+        </member>
+        <member name="M:Fred68.Tools.Matematica.Line2D.Midpoint">
+            <summary>
+            Punto medio
+            </summary>
+            <returns>Il punto</returns>
+        </member>
+        <member name="M:Fred68.Tools.Matematica.Line2D.Point(System.Double)">
+            <summary>
+            Punto sulla linea calcolato con il parametro t
+            </summary>
+            <param name="t">parametro: se [0,1], e` tra P1 e P2</param>
+            <returns>Il punto</returns>
+        </member>
+        <member name="M:Fred68.Tools.Matematica.Line2D.Axis">
+            <summary>
+            Linea d'asse
+            </summary>
+            <returns>La linea</returns>
+        </member>
+        <member name="M:Fred68.Tools.Matematica.Line2D.Belongs(Fred68.Tools.Matematica.Point2D,System.Boolean)">
+            <summary>
+            Appartenenza del punto p alla retta
+            </summary>
+            <param name="p">Punto</param>
+            <param name="bInside">true richiede appartenenza al segmento</param>
+            <returns>true se appartiene alla retta o al segmento</returns>
+        </member>
+        <member name="M:Fred68.Tools.Matematica.Line2D.ToString">
+            <summary>
+            ToString()
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Fred68.Tools.Matematica.Line2D.Plot(System.Drawing.Graphics,Fred68.Tools.Grafica.Finestra,System.Drawing.Pen)">
+            <summary>
+            Disegna
+            </summary>
+            <param name="dc"></param>
+            <param name="fin"></param>
+            <param name="penna"></param>
+        </member>
+        <member name="M:Fred68.Tools.Matematica.Line2D.Display(Fred68.Tools.Grafica.DisplayList,System.Int32)">
+            <summary>
+            Aggiunge alla dsiplay list
+            </summary>
+            <param name="displaylist"></param>
+            <param name="penna"></param>
+        </member>
+        <member name="P:Fred68.Tools.Matematica.Line2D.pStart">
+            <summary>
+            Punto iniziale
+            </summary>
+        </member>
+        <member name="P:Fred68.Tools.Matematica.Line2D.pEnd">
+            <summary>
+            Punto finale
+            </summary>
+        </member>
+        <member name="P:Fred68.Tools.Matematica.Line2D.P12">
+            <summary>
+            Array con punto iniziale e finale
+            </summary>
+        </member>
+        <member name="F:Fred68.Tools.Engineering.Raggio.corpoAttuale">
+            <summary>
+            Materiale in cui si trova il raggio
+            </summary>
+        </member>
+        <member name="F:Fred68.Tools.Engineering.Raggio.t1r">
+            <summary>
+            Parametro t inizio proiezione raggio
+            </summary>
+        </member>
+        <member name="F:Fred68.Tools.Engineering.Raggio.t2r">
+            <summary>
+            Parametro t fine proiezione raggio
+            </summary>
+        </member>
+        <member name="F:Fred68.Tools.Engineering.Raggio.lambda">
+            <summary>
+            Lunghezza d'onda
+            in nm (1e-9 m)
+            </summary>
+        </member>
+        <member name="M:Fred68.Tools.Engineering.Raggio.#ctor">
+            <summary>
+            Costruttore
+            </summary>
+        </member>
+        <member name="M:Fred68.Tools.Engineering.Raggio.#ctor(Fred68.Tools.Matematica.Line2D,System.Double)">
+            <summary>
+            Costruttore da linea e lunghezza d'onda
+            </summary>
+            <param name="l">Linea</param>
+            <param name="lambda">Lunghezza d'onda in nm (1e-9 m)</param>
+        </member>
+        <member name="M:Fred68.Tools.Engineering.Raggio.Validate">
+            <summary>
+            Corregge
+            </summary>
+        </member>
+        <member name="M:Fred68.Tools.Engineering.Raggio.Plot(System.Drawing.Graphics,Fred68.Tools.Grafica.Finestra,System.Drawing.Pen)">
+            <summary>
+            Plot, traccia raggio completo
+            </summary>
+            <param name="dc"></param>
+            <param name="fin"></param>
+            <param name="penna"></param>
+        </member>
+        <member name="P:Fred68.Tools.Engineering.Raggio.CorpoAttuale">
+            <summary>
+            Materiale in cui si trova il raggio
+            </summary>
+        </member>
+        <member name="P:Fred68.Tools.Engineering.Raggio.T1r">
+            <summary>
+            Parametro t1 proiezione raggio
+            </summary>
+        </member>
+        <member name="P:Fred68.Tools.Engineering.Raggio.T2r">
+            <summary>
+            Parametro t2 proiezione raggio
+            </summary>
+        </member>
+        <member name="P:Fred68.Tools.Engineering.Raggio.Lambda">
+            <summary>
+            Lunghezza d'onda
+            </summary>
+        </member>
+        <member name="T:Fred68.Tools.Engineering.StatoSuperficie">
+            <summary> Stato di una superficie </summary>
+        </member>
+        <member name="T:Fred68.Tools.Engineering.Contorno">
+            <summary> Contorno </summary>
+        </member>
+        <member name="F:Fred68.Tools.Engineering.Contorno.obj">
+            <summary>
+            Oggetto con il segmento (Line2D, Arc2D...)
+            </summary>
+        </member>
+        <member name="F:Fred68.Tools.Engineering.Contorno.stat">
+            <summary>
+            Tipo di superficie
+            </summary>
+        </member>
+        <member name="F:Fred68.Tools.Engineering.Contorno.aContatto">
+            <summary>
+            Superficie a contatto con altro corpo
+            (Ignora indice di rifrazione del mezzo globale)
+            </summary>
+        </member>
+        <member name="M:Fred68.Tools.Engineering.Contorno.#ctor">
+            <summary>
+            Costruttore generico, non ammesso.
+            </summary>
+        </member>
+        <member name="M:Fred68.Tools.Engineering.Contorno.#ctor(Fred68.Tools.Matematica.Tratto,Fred68.Tools.Engineering.StatoSuperficie)">
+            <summary>
+            Costruttore
+            </summary>
+            <param name="tr"></param>
+            <param name="stato"></param>
+        </member>
+        <member name="M:Fred68.Tools.Engineering.Contorno.Plot(System.Drawing.Graphics,Fred68.Tools.Grafica.Finestra,System.Drawing.Pen)">
+            <summary>
+            Plot
+            </summary>
+            <param name="dc"></param>
+            <param name="fin"></param>
+            <param name="penna"></param>
+        </member>
+        <member name="M:Fred68.Tools.Engineering.Contorno.Display(Fred68.Tools.Grafica.DisplayList,System.Int32)">
+            <summary>
+            Aggiunge alla display list
+            </summary>
+            <param name="displaylist"></param>
+            <param name="penna"></param>
+        </member>
+        <member name="P:Fred68.Tools.Engineering.Contorno.Stato">
+            <summary>
+            Stato superficie (enum StatoSuperficie)
+            </summary>
+        </member>
+        <member name="P:Fred68.Tools.Engineering.Contorno.Tratto">
+            <summary>
+            Tratto corrispondente
+            </summary>
+        </member>
+        <member name="P:Fred68.Tools.Engineering.Contorno.Acontatto">
+            <summary>
+            Superficie e contatto
+            Ignora n rifrazione del mezzo globale fino al prossimo oggetto
+            </summary>
+        </member>
+        <member name="T:Fred68.Tools.Matematica.MatrixInfo">
+            <summary> Base generical Matrix class
+            MatrixInfo contains information about the matrix, if valid or null,
+            or if the last operation caused an error like bad conditioning, wrong dimension...
+            </summary>
+        </member>
+        <member name="F:Fred68.Tools.Matematica.MatrixInfo.Valid">
+            Matrice valida row>0 and col>0
+        </member>
+        <member name="F:Fred68.Tools.Matematica.MatrixInfo.NullMatrix">
+            Matrice nulla, row==0 || col==0
+        </member>
+        <member name="F:Fred68.Tools.Matematica.MatrixInfo.WrongDimension">
+            Matrice risultato di un'operazione con errore
+        </member>
+        <member name="F:Fred68.Tools.Matematica.MatrixInfo.DivisionByZero">
+            Divisione per zero
+        </member>
+        <member name="F:Fred68.Tools.Matematica.MatrixInfo.BadConditioned">
+            Mal condizionata determinante = 0
+        </member>
+        <member name="F:Fred68.Tools.Matematica.MatrixInfo.Invalid">
+            Errore generico di altra operazione
+        </member>
+        <member name="T:Fred68.Tools.Matematica.Transform2D">
+            <summary>
+            Classe per trasformazioni geometriche 2D
+            </summary>
+        </member>
+        <member name="M:Fred68.Tools.Matematica.Transform2D.#ctor">
+            <summary>
+            Costruttore principale
+            Matrice identita`
+            </summary>
+        </member>
+        <member name="M:Fred68.Tools.Matematica.Transform2D.#ctor(Fred68.Tools.Matematica.Matrix)">
+            <summary>
+            Costruttore di copia da classe base
+            </summary>
+            <param name="m"></param>
+        </member>
+        <member name="M:Fred68.Tools.Matematica.Transform2D.Scala(System.Double,System.Double)">
+            <summary>
+            Restituisce trasformazione di scala
+            </summary>
+            <param name="sx"></param>
+            <param name="sy"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Fred68.Tools.Matematica.Transform2D.Scala(System.Double)">
+            <summary>
+            Restituisce trasformazione di scala uniforme
+            </summary>
+            <param name="s"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Fred68.Tools.Matematica.Transform2D.Rotazione(System.Double,System.Boolean)">
+            <summary>
+            Rotazione attorno all'origine
+            </summary>
+            <param name="alf"></param>
+            <param name="radianti"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Fred68.Tools.Matematica.Transform2D.Traslazione(System.Double,System.Double)">
+            <summary>
+            Traslazione
+            </summary>
+            <param name="x"></param>
+            <param name="y"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Fred68.Tools.Matematica.Transform2D.Traslazione(Fred68.Tools.Matematica.Point2D)">
+            <summary>
+            Traslazione
+            </summary>
+            <param name="tr"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Fred68.Tools.Matematica.Transform2D.op_Addition(Fred68.Tools.Matematica.Transform2D,Fred68.Tools.Matematica.Transform2D)">
+            <summary>
+            Combinazione di trasformazioni
+             a+b: prima la a, poi la b
+            </summary>
+            <param name="sx"></param>
+            <param name="dx"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Fred68.Tools.Matematica.Transform2D.Rotazione(Fred68.Tools.Matematica.Point2D,System.Double,System.Boolean)">
+            <summary>
+            Rotazione attorno ad un punto
+            Combinazione di traslazione inversa nell'origine, rotazione e traslazione
+            </summary>
+            <param name="p"></param>
+            <param name="alf"></param>
+            <param name="radianti"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Fred68.Tools.Matematica.Transform2D.Convert(Fred68.Tools.Matematica.Point2D)">
+            <summary>
+            Trasforma da Point2D a coordinate omogenee
+            </summary>
+            <param name="pt"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Fred68.Tools.Matematica.Transform2D.Convert(Fred68.Tools.Matematica.Matrix)">
+            <summary>
+            Trasforma da coordinate omogenee a Point2D
+            </summary>
+            <param name="pth"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Fred68.Tools.Matematica.Transform2D.Transform(Fred68.Tools.Matematica.Point2D)">
+            <summary>
+            Applica trasformazione al punto p
+            </summary>
+            <param name="p"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Fred68.Tools.Matematica.Function2D">
+            <summary> Classe statica non istanziabile con molte funzioni di supporto </summary>
+        </member>
+        <member name="M:Fred68.Tools.Matematica.Function2D.Midpoint(Fred68.Tools.Matematica.Point2D,Fred68.Tools.Matematica.Point2D)">
+            <summary>
+            Punto medio tra due punti
+            </summary>
+            <param name="p1">Primo punto</param>
+            <param name="p2">Secondo punto</param>
+            <returns></returns>
+        </member>
+        <member name="M:Fred68.Tools.Matematica.Function2D.Distance(Fred68.Tools.Matematica.Point2D,Fred68.Tools.Matematica.Point2D)">
+            <summary>
+            Distanza tra due punti
+            </summary>
+            <param name="p1">Primo punto</param>
+            <param name="p2">Secondo punto</param>
+            <returns></returns>
+        </member>
+        <member name="M:Fred68.Tools.Matematica.Function2D.Distance(Fred68.Tools.Matematica.Point2D,Fred68.Tools.Matematica.Line2D)">
+            <summary>
+            Distanza punto - retta
+            </summary>
+            <param name="p">Punto</param>
+            <param name="l">Linea</param>
+            <returns></returns>
+        </member>
+        <member name="M:Fred68.Tools.Matematica.Function2D.Distance(Fred68.Tools.Matematica.Point2D,Fred68.Tools.Matematica.Tratto)">
+            <summary>
+            Distanza punto - tratto generico
+            </summary>
+            <param name="p">Punto</param>
+            <param name="te">Tratto</param>
+            <returns></returns>
+        </member>
+        <member name="M:Fred68.Tools.Matematica.Function2D.AreConnected(Fred68.Tools.Matematica.Tratto,Fred68.Tools.Matematica.Tratto)">
+            <summary>
+            Controlla se due tratti sono connessi
+            </summary>
+            <param name="t1"></param>
+            <param name="t2"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Fred68.Tools.Matematica.Function2D.Intersect(Fred68.Tools.Matematica.Line2D,Fred68.Tools.Matematica.Line2D,System.Boolean,System.Boolean)">
+            <summary>
+            Intersezioni tra due linee
+            </summary>
+            <param name="l1">Prima linea</param>
+            <param name="l2">Seconda linea</param>
+            <param name="bCheckInside1">Richiesta intersezione interna alla prima linea</param>
+            <param name="bCheckInside2">Richiesta intersezione interna alla secondalinea</param>
+            <returns></returns>
+        </member>
+        <member name="M:Fred68.Tools.Matematica.Function2D.Intersect(Fred68.Tools.Matematica.Line2D,Fred68.Tools.Matematica.Arc2D,System.Boolean,System.Boolean)">
+            <summary>
+            Intersezioni tra linea ed arco
+            </summary>
+            <param name="l1">Linea</param>
+            <param name="a2">Arco</param>
+            <param name="bCheckInside1">Richiesta intersezione interna alla linea</param>
+            <param name="bCheckInside2">Richiesta intersezione interna all'arco</param>
+            <returns></returns>
+        </member>
+        <member name="M:Fred68.Tools.Matematica.Function2D.Intersect(Fred68.Tools.Matematica.Line2D,Fred68.Tools.Matematica.Tratto,System.Boolean,System.Boolean)">
+            <summary>
+            Intersezione tra linea e tratto generico
+            </summary>
+            <param name="l1">Linea</param>
+            <param name="te">Tratto</param>
+            <param name="bCheckInside1">Richiesta intersezione interna alla linea</param>
+            <param name="bCheckInside2">Richiesta intersezione interna al tratto</param>
+            <returns></returns>
+        </member>
+        <member name="M:Fred68.Tools.Matematica.Function2D.Nearest(Fred68.Tools.Matematica.Point2D,System.Collections.Generic.List{Fred68.Tools.Matematica.Point2D},Fred68.Tools.Matematica.Point2D@,System.Double@)">
+            <summary>
+            Punto piu` vicino a p, tra i punti di una lista
+            </summary>
+            <param name="p">Punto p</param>
+            <param name="pl">Lista di punti</param>
+            <param name="nearest">Punto trovato (parametro out)</param>
+            <param name="distance">Distanza (parametro out)</param>
+            <returns>true se trova il punto</returns>
+        </member>
+        <member name="M:Fred68.Tools.Matematica.Function2D.Nearest(Fred68.Tools.Matematica.Point2D,System.Collections.Generic.List{Fred68.Tools.Matematica.Point2D})">
+            <summary>
+            Punto piu` vicino a p, tra i punti di una lista
+            </summary>
+            <param name="p">Punto p</param>
+            <param name="pl">Lista</param>
+            <returns>Il punto trovato, se no null</returns>
+        </member>
+        <member name="M:Fred68.Tools.Matematica.Function2D.Nearest(Fred68.Tools.Matematica.Point2D,Fred68.Tools.Matematica.Line2D,Fred68.Tools.Matematica.Point2D@,System.Double@,System.Boolean)">
+            <summary>
+            Punto piu` vicino a p, su una linea
+            </summary>
+            <param name="p">Punto p</param>
+            <param name="l">Linea</param>
+            <param name="nearest">Punto trovato (parametro out)</param>
+            <param name="distance">Distanza (parametro out)</param>
+            <param name="bInside">true se richiesta intersezione interna alla linea</param>
+            <returns>true se trovato</returns>
+        </member>
+        <member name="M:Fred68.Tools.Matematica.Function2D.Nearest(Fred68.Tools.Matematica.Point2D,Fred68.Tools.Matematica.Line2D,System.Boolean)">
+            <summary>
+            Punto piu` vicino a p, su una linea
+            </summary>
+            <param name="p">Punto p</param>
+            <param name="l">Linea</param>
+            <param name="bInside">true se richiesta intersezione interna alla linea</param>
+            <returns>Il punto trovato, se no null</returns>
+        </member>
+        <member name="M:Fred68.Tools.Matematica.Function2D.Nearest(Fred68.Tools.Matematica.Point2D,Fred68.Tools.Matematica.Arc2D,Fred68.Tools.Matematica.Point2D@,System.Double@,System.Boolean)">
+            <summary>
+            Punto piu` vicino a p, su un arco
+            </summary>
+            <param name="p">Punto p</param>
+            <param name="a">Arco</param>
+            <param name="nearest">Punto trovato (parametro out)</param>
+            <param name="distance">Distanza (parametro out)</param>
+            <param name="bInside">true se richiesta intersezione interna all'arco</param>
+            <returns>true se trovato</returns>
+        </member>
+        <member name="M:Fred68.Tools.Matematica.Function2D.Nearest(Fred68.Tools.Matematica.Point2D,Fred68.Tools.Matematica.Arc2D,System.Boolean)">
+            <summary>
+            Punto piu` vicino a p, su un arco
+            </summary>
+            <param name="p">Punto p</param>
+            <param name="a">Arco</param>
+            <param name="bInside">true se richiesta intersezione interna all'arco</param>
+            <returns>Il punto trovato, se no null</returns>
+        </member>
+        <member name="M:Fred68.Tools.Matematica.Function2D.Nearest(Fred68.Tools.Matematica.Point2D,Fred68.Tools.Matematica.Tratto,Fred68.Tools.Matematica.Point2D@,System.Double@,System.Boolean)">
+            <summary>
+            Punto piu` vicino, su un tratto generico
+            </summary>
+            <param name="p">Punto</param>
+            <param name="te">Tratto</param>
+            <param name="nearest">Punto trovato (parametro out)</param>
+            <param name="distance">Distanza (parametro out)</param>
+            <param name="bInside">true se richiesta intersezione interna al tratto</param>
+            <returns>true se trovato</returns>
+        </member>
+        <member name="M:Fred68.Tools.Matematica.Function2D.Nearest(Fred68.Tools.Matematica.Point2D,Fred68.Tools.Matematica.Tratto,System.Boolean)">
+            <summary>
+            Punto piu` vicino, su un tratto generico
+            </summary>
+            <param name="p">Punto</param>
+            <param name="te">Tratto</param>
+            <param name="bInside">true se richiesta intersezione interna al tratto</param>
+            <returns>Il punto trovato, se no null</returns>
+        </member>
+        <member name="M:Fred68.Tools.Matematica.Function2D.Projection(Fred68.Tools.Matematica.Point2D,Fred68.Tools.Matematica.Line2D,Fred68.Tools.Matematica.Point2D@,System.Boolean)">
+            <summary>
+            Proiezione di un punto su una linea
+            </summary>
+            <param name="p">Punto</param>
+            <param name="l">Linea</param>
+            <param name="projection">Proiezione (parametro out)</param>
+            <param name="bInside">true se richiesta appartenenza proiezione all'interno della linea</param>
+            <returns>true se trovata</returns>
+        </member>
+        <member name="M:Fred68.Tools.Matematica.Function2D.Projection(Fred68.Tools.Matematica.Point2D,Fred68.Tools.Matematica.Line2D,System.Boolean)">
+            <summary>
+            Proiezione di un punto su una linea
+            </summary>
+            <param name="p">Punto</param>
+            <param name="l">Linea</param>
+            <param name="bInside">true se richiesta appartenenza proiezione all'interno della linea</param>
+            <returns>La proiezione</returns>
+        </member>
+        <member name="M:Fred68.Tools.Matematica.Function2D.Projection(Fred68.Tools.Matematica.Point2D,Fred68.Tools.Matematica.Arc2D,Fred68.Tools.Matematica.Point2D@,System.Boolean)">
+            <summary>
+            Proiezione di un punto su un arco
+            </summary>
+            <param name="p">Punto</param>
+            <param name="a">Arco</param>
+            <param name="projection">Proiezione (parametro out)</param>
+            <param name="bInside">true se richiesta appartenenza proiezione all'interno dell'arco</param>
+            <returns>true se trovata</returns>
+        </member>
+        <member name="M:Fred68.Tools.Matematica.Function2D.Projection(Fred68.Tools.Matematica.Point2D,Fred68.Tools.Matematica.Arc2D,System.Boolean)">
+            <summary>
+            Proiezione di un punto su un arco
+            </summary>
+            <param name="p">Punto</param>
+            <param name="a">Arco</param>
+            <param name="bInside">true se richiesta appartenenza proiezione all'interno della linea</param>
+            <returns>La proiezione</returns>
+        </member>
+        <member name="M:Fred68.Tools.Matematica.Function2D.Projection(Fred68.Tools.Matematica.Point2D,Fred68.Tools.Matematica.Tratto,Fred68.Tools.Matematica.Point2D@,System.Boolean)">
+            <summary>
+            Proiezione di un punto su un tratto generico
+            </summary>
+            <param name="p">Punto</param>
+            <param name="te">Tratto</param>
+            <param name="projection">Proiezione (parametro out)</param>
+            <param name="bInside">true se richiesta appartenenza proiezione all'interno del tratto</param>
+            <returns></returns>
+        </member>
+        <member name="M:Fred68.Tools.Matematica.Function2D.Projection(Fred68.Tools.Matematica.Point2D,Fred68.Tools.Matematica.Tratto,System.Boolean)">
+            <summary>
+            Proiezione di un punto su un tratto generico
+            </summary>
+            <param name="p">Punto</param>
+            <param name="te">Tratto</param>
+            <param name="bInside">true se richiesta appartenenza proiezione all'interno del tratto</param>
+            <returns>La proiezione</returns>
+        </member>
+        <member name="M:Fred68.Tools.Matematica.Function2D.LineOut(Fred68.Tools.Matematica.Point2D,Fred68.Tools.Matematica.Line2D,Fred68.Tools.Matematica.Line2D@,Fred68.Tools.Matematica.Point2D)">
+            <summary>
+            Linea (modulo unitario) per il punto p normale ad l
+            </summary>
+            <param name="p">Punto p</param>
+            <param name="l">Linea l</param>
+            <param name="vOut">Linea normale (parametro out), passante per p</param>
+            <param name="ext">Punto esterno opzionale per definire il verso</param>
+            <returns>true se trovato</returns>
+        </member>
+        <member name="M:Fred68.Tools.Matematica.Function2D.VersorOut(Fred68.Tools.Matematica.Point2D,Fred68.Tools.Matematica.Line2D,Fred68.Tools.Matematica.Point2D@,Fred68.Tools.Matematica.Point2D)">
+            <summary>
+            Versore (modulo unitario) per il punto p normale ad l
+            </summary>
+            <param name="p">Punto p</param>
+            <param name="l">Linea l</param>
+            <param name="vOut">Versore (parametro out)</param>
+            <param name="ext">Punto esterno opzionale per definire il verso</param>
+            <returns>true se trovato</returns>
+        </member>
+        <member name="M:Fred68.Tools.Matematica.Function2D.LineOut(Fred68.Tools.Matematica.Point2D,Fred68.Tools.Matematica.Line2D,Fred68.Tools.Matematica.Point2D)">
+            <summary>
+            Linea (modulo unitario) per il punto p normale ad l
+            </summary>
+            <param name="p">Punto p</param>
+            <param name="l">Linea l</param>
+            <param name="ext">Punto esterno opzionale per definire il verso</param>
+            <returns>La linea normale o null se non trovata </returns>
+        </member>
+        <member name="M:Fred68.Tools.Matematica.Function2D.VersorOut(Fred68.Tools.Matematica.Point2D,Fred68.Tools.Matematica.Line2D,Fred68.Tools.Matematica.Point2D)">
+            <summary>
+            Versore (modulo unitario) per il punto p normale ad l
+            </summary>
+            <param name="p">Punto p</param>
+            <param name="l">Linea l</param>
+            <param name="ext">Punto esterno opzionale per definire il verso</param>
+            <returns>Il versore normale o null se non trovato</returns>
+        </member>
+        <member name="M:Fred68.Tools.Matematica.Function2D.LineOut(Fred68.Tools.Matematica.Point2D,Fred68.Tools.Matematica.Arc2D,Fred68.Tools.Matematica.Line2D@,Fred68.Tools.Matematica.Point2D)">
+            <summary>
+            Linea (modulo unitario) per il punto p normale ad un arco
+            </summary>
+            <param name="p">Punto p</param>
+            <param name="a">Arco</param>
+            <param name="vOut">Linea normale (parametro out)</param>
+            <param name="ext">Punto esterno opzionale per definire il verso</param>
+            <returns>true se trovato</returns>
+        </member>
+        <member name="M:Fred68.Tools.Matematica.Function2D.VersorOut(Fred68.Tools.Matematica.Point2D,Fred68.Tools.Matematica.Arc2D,Fred68.Tools.Matematica.Point2D@,Fred68.Tools.Matematica.Point2D)">
+            <summary>
+            Versore (modulo unitario) per il punto p normale ad un arco
+            </summary>
+            <param name="p">Punto p</param>
+            <param name="a">Arco</param>
+            <param name="vOut">Versore normale (parametro out)</param>
+            <param name="ext">Punto esterno opzionale per definire il verso</param>
+            <returns>true se trovato</returns>
+        </member>
+        <member name="M:Fred68.Tools.Matematica.Function2D.LineOut(Fred68.Tools.Matematica.Point2D,Fred68.Tools.Matematica.Arc2D,Fred68.Tools.Matematica.Point2D)">
+            <summary>
+            Linea (modulo unitario) per il punto p normale ad un arco
+            </summary>
+            <param name="p">Punto p</param>
+            <param name="a">Arco</param>
+            <param name="ext">Punto esterno opzionale per definire il verso</param>
+            <returns>La linea normale o null se non trovata</returns>
+        </member>
+        <member name="M:Fred68.Tools.Matematica.Function2D.VersorOut(Fred68.Tools.Matematica.Point2D,Fred68.Tools.Matematica.Arc2D,Fred68.Tools.Matematica.Point2D)">
+            <summary>
+            Versore (modulo unitario) per il punto p normale ad un arco
+            </summary>
+            <param name="p">Punto p</param>
+            <param name="a">Arco</param>
+            <param name="ext">Punto esterno opzionale per definire il verso</param>
+            <returns>Il versore normale o null se non trovato</returns>
+        </member>
+        <member name="M:Fred68.Tools.Matematica.Function2D.LineOut(Fred68.Tools.Matematica.Point2D,Fred68.Tools.Matematica.Tratto,Fred68.Tools.Matematica.Line2D@,Fred68.Tools.Matematica.Point2D)">
+            <summary>
+            Linea uscente
+            </summary>
+            <param name="p">Punto sul tratto</param>
+            <param name="te">Tratto</param>
+            <param name="vOut">Versore uscente (parametro out)</param>
+            <param name="ext">Punto esterno opzionale</param>
+            <returns>bool</returns>
+        </member>
+        <member name="M:Fred68.Tools.Matematica.Function2D.VersorOut(Fred68.Tools.Matematica.Point2D,Fred68.Tools.Matematica.Tratto,Fred68.Tools.Matematica.Point2D@,Fred68.Tools.Matematica.Point2D)">
+            <summary>
+            Versore uscente
+            </summary>
+            <param name="p">Punto sul tratto</param>
+            <param name="te">Tratto</param>
+            <param name="vOut">Versore uscente (parametro out)</param>
+            <param name="ext">Punto esterno opzionale</param>
+            <returns>bool</returns>
+        </member>
+        <member name="M:Fred68.Tools.Matematica.Function2D.LineOut(Fred68.Tools.Matematica.Point2D,Fred68.Tools.Matematica.Tratto,Fred68.Tools.Matematica.Point2D)">
+            <summary>
+            Linea uscente
+            </summary>
+            <param name="p">Punto sul tratto</param>
+            <param name="te">Tratto</param>
+            <param name="ext">Punto esterno opzionale</param>
+            <returns></returns>
+        </member>
+        <member name="M:Fred68.Tools.Matematica.Function2D.VersorOut(Fred68.Tools.Matematica.Point2D,Fred68.Tools.Matematica.Tratto,Fred68.Tools.Matematica.Point2D)">
+            <summary>
+            Versore uscente
+            </summary>
+            <param name="p">Punto sul tratto</param>
+            <param name="te">Tratto</param>
+            <param name="ext">Punto esterno opzionale</param>
+            <returns></returns>
+        </member>
+        <member name="M:Fred68.Tools.Matematica.Function2D.OrdinaInX(System.Collections.Generic.List{Fred68.Tools.Matematica.Point2D})">
+            <summary>
+            Ordina lista punti secondo x
+            </summary>
+            <param name="punti"></param>
+        </member>
+        <member name="M:Fred68.Tools.Matematica.Function2D.InterpolazioneLineare(System.Collections.Generic.List{Fred68.Tools.Matematica.Point2D},System.Double)">
+            <summary>
+            Interpolazione lineare
+            Se la lista contiene un solo valore, lo restituisce comunque
+            Se no interpola solo tra il primo e l'ultimo punto.
+            </summary>
+            <param name="punti">Lista punti ordinata secondo x</param>
+            <param name="x">Valore x da interpolare</param>
+            <returns>Valore interpolato linearmente oppure NaN se fuori limiti</returns>
+        </member>
+        <member name="T:Fred68.Tools.Matematica.Angolo">
+            <summary>
+            Classe per gestire gli angoli tra -PI e +PI in radianti
+            </summary>
+        </member>
+        <member name="M:Fred68.Tools.Matematica.Angolo.#ctor(System.Double)">
+            <summary>
+            Costruttore (da double)
+            </summary>
+            <param name="ang"></param>
+        </member>
+        <member name="M:Fred68.Tools.Matematica.Angolo.op_Implicit(Fred68.Tools.Matematica.Angolo)~System.Double">
+            <summary>
+            Conversione implicita da Angolo a double
+            </summary>
+            <param name="ang">Angolo</param>
+            <returns></returns>
+        </member>
+        <member name="M:Fred68.Tools.Matematica.Angolo.op_Implicit(System.Double)~Fred68.Tools.Matematica.Angolo">
+            <summary>
+            Conversione implicita da double ad Angolo
+            </summary>
+            <param name="ang">double</param>
+            <returns></returns>
+        </member>
+        <member name="M:Fred68.Tools.Matematica.Angolo.op_Subtraction(Fred68.Tools.Matematica.Angolo,Fred68.Tools.Matematica.Angolo)">
+            <summary>
+            Sottrazione a-b
+            </summary>
+            <param name="sx">a</param>
+            <param name="dx">b</param>
+            <returns></returns>
+        </member>
+        <member name="M:Fred68.Tools.Matematica.Angolo.op_Addition(Fred68.Tools.Matematica.Angolo,Fred68.Tools.Matematica.Angolo)">
+            <summary>
+            Somma a+b
+            </summary>
+            <param name="sx">a</param>
+            <param name="dx">b</param>
+            <returns></returns>
+        </member>
+        <member name="M:Fred68.Tools.Matematica.Angolo.op_LessThan(Fred68.Tools.Matematica.Angolo,Fred68.Tools.Matematica.Angolo)">
+            <summary>Confronto</summary>
+        </member>
+        <member name="M:Fred68.Tools.Matematica.Angolo.op_LessThanOrEqual(Fred68.Tools.Matematica.Angolo,Fred68.Tools.Matematica.Angolo)">
+            <summary>Confronto</summary>
+        </member>
+        <member name="M:Fred68.Tools.Matematica.Angolo.op_GreaterThan(Fred68.Tools.Matematica.Angolo,Fred68.Tools.Matematica.Angolo)">
+            <summary>Confronto</summary>
+        </member>
+        <member name="M:Fred68.Tools.Matematica.Angolo.op_GreaterThanOrEqual(Fred68.Tools.Matematica.Angolo,Fred68.Tools.Matematica.Angolo)">
+            <summary>Confronto</summary>
+        </member>
+        <member name="T:Fred68.Tools.Engineering.Ottica">
+            <summary> Classe statica con alcune funzioni di calcolo ottico </summary>
+        </member>
+        <member name="M:Fred68.Tools.Engineering.Ottica.Riflesso(Fred68.Tools.Matematica.Point2D,Fred68.Tools.Matematica.Point2D)">
+            <summary>
+            Ottiene il versore riflesso
+            </summary>
+            <param name="versoreIn">Versore raggio entrante</param>
+            <param name="versoreNorm">Versore normale uscente</param>
+            <returns></returns>
+        </member>
+        <member name="M:Fred68.Tools.Engineering.Ottica.Rifratto(Fred68.Tools.Matematica.Point2D,Fred68.Tools.Matematica.Point2D,System.Double,System.Double)">
+            <summary>
+            Ottiene il versore rifratto
+            </summary>
+            <param name="versoreIn">Versore raggio entrante</param>
+            <param name="versoreNorm">Versore normale uscente</param>
+            <param name="n1">indice rifrazione mezzo attuale</param>
+            <param name="n2">indice rifrazione prossimo mezzo</param>
+            <returns></returns>
+        </member>
+        <member name="T:Fred68.Tools.Engineering.Ottica.LunghezzaOnda">
+            <summary>
+            Lunghezze d'onda comuni
+            in nm (1e-9)
+            </summary>
+        </member>
+        <member name="T:Fred68.Tools.Engineering.Ottica.MaterialiOttici">
+            <summary>
+            Classe di appoggio per i materiali ottici comuni
+            </summary>
+        </member>
+        <member name="M:Fred68.Tools.Engineering.Ottica.MaterialiOttici.#cctor">
+            <summary>
+            Costruttore statico.
+            Legge il file Mat.dat nella stessa cartella dell'eseguibile
+            </summary>
+        </member>
+        <member name="M:Fred68.Tools.Engineering.Ottica.MaterialiOttici.Get(System.String)">
+            <summary>
+            Estrae il materiale ottico in base al nome
+            </summary>
+            <param name="name"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Fred68.Tools.Engineering.Ottica.MaterialiOttici.Lista">
+            <summary>
+            Restituisce la lista dei materiali ottici disponibili
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Fred68.Tools.Engineering.OggettoOttico">
+            <summary> Classe base per oggetti ottici in genere </summary>
+        </member>
+        <member name="F:Fred68.Tools.Engineering.OggettoOttico.coincidencedistance">
+            <summary>Distanza minima due punti distinti</summary>
+        </member>
+        <member name="F:Fred68.Tools.Engineering.OggettoOttico.nomestandard">
+            <summary>
+            Nome standard iniziale
+            </summary>
+        </member>
+        <member name="F:Fred68.Tools.Engineering.OggettoOttico.descrittore">
+            <summary>
+            descrittore (usato se scrittura su stream)
+            </summary>
+        </member>
+        <member name="F:Fred68.Tools.Engineering.OggettoOttico.caratteriValidi">
+            <summary>
+            lista caratteri validi per il nome
+            </summary>
+        </member>
+        <member name="M:Fred68.Tools.Engineering.OggettoOttico.#ctor">
+            <summary>
+            Costruttore
+            </summary>
+        </member>
+        <member name="M:Fred68.Tools.Engineering.OggettoOttico.#ctor(System.String)">
+            <summary>
+            Costruttore
+            </summary>
+            <param name="nameogg"></param>
+        </member>
+        <member name="M:Fred68.Tools.Engineering.OggettoOttico.FilterName(System.String)">
+            <summary>
+            Filtra solo i caratteri validi
+            </summary>
+            <param name="n"></param>
+            <returns></returns>
+        </member>
+        <member name="P:Fred68.Tools.Engineering.OggettoOttico.CoincidenceDistance">
+            <summary>Distanza minima due punti distinti</summary>
+        </member>
+        <member name="P:Fred68.Tools.Engineering.OggettoOttico.Nome">
+            <summary>
+            Nome dell'oggetto
+            </summary>
+        </member>
+        <member name="P:Fred68.Tools.Engineering.OggettoOttico.IsValid">
+            <summary>
+            true se valido
+            </summary>
+        </member>
+        <member name="T:Fred68.Tools.Engineering.MaterialeOttico">
+            <summary> Classe con i materiali </summary>
+        </member>
+        <member name="M:Fred68.Tools.Engineering.MaterialeOttico.Clear(System.Double)">
+            <summary>
+            Azzera e imposta n = 1
+            Non modifica il nome
+            </summary>
+        </member>
+        <member name="M:Fred68.Tools.Engineering.MaterialeOttico.#ctor">
+            <summary>
+            Costruttore vuoto
+            </summary>
+        </member>
+        <member name="M:Fred68.Tools.Engineering.MaterialeOttico.#ctor(System.String,System.Double)">
+            <summary>
+            Costruttore con indice di rifrazione costante
+            </summary>
+            <param name="Nome">Nome del materiale</param>
+            <param name="Nrifrazione">Indice di rifrazione</param>
+        </member>
+        <member name="M:Fred68.Tools.Engineering.MaterialeOttico.#ctor(System.String,System.Double,System.Double,System.Double,System.Double,System.Double,System.Double)">
+            <summary>
+            Costruttore con indice di rifrazione variabile
+            Parametri della serie di Laurent
+            </summary>
+            <param name="Nome">Nome del materiale</param>
+            <param name="A0"></param>
+            <param name="A1"></param>
+            <param name="A2"></param>
+            <param name="A3"></param>
+            <param name="A4"></param>
+            <param name="A5"></param>
+        </member>
+        <member name="M:Fred68.Tools.Engineering.MaterialeOttico.#ctor(System.String,System.Double[])">
+            <summary>
+            Costruttore con indice di rifrazione variabile
+            Parametri della serie di Laurent
+            </summary>
+            <param name="Nome">Nome del materiale</param>
+            <param name="A">Array di double di 6 elementi</param>
+        </member>
+        <member name="M:Fred68.Tools.Engineering.MaterialeOttico.Validate">
+            <summary>
+            Verifica e corregge
+            Controlla solo A[0]
+            </summary>
+        </member>
+        <member name="M:Fred68.Tools.Engineering.MaterialeOttico.GetnRifrazione">
+            <summary>
+            Restituisce l'indice di rifrazione, se unico
+            oppure NaN in tutti gli altri casi
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Fred68.Tools.Engineering.MaterialeOttico.GetnRifrazione(System.Double)">
+            <summary>
+            Restituisce l'indice di rifrazione ad una lunghezza d'onda,
+            pari al valore costante oppure calcolato con la serie di Laurent
+            Al momento non e' utilizzata la serie di Sellmeier
+            </summary>
+            <param name="lambda">Lunghezza d'onda in nm (1e-9 m)</param>
+            <returns></returns>
+        </member>
+        <member name="M:Fred68.Tools.Engineering.MaterialeOttico.SetnRifrazione(System.Double)">
+            <summary>
+            Imposta l'indice di rifrazione (costante)
+            </summary>
+            <param name="n"></param>
+        </member>
+        <member name="M:Fred68.Tools.Engineering.MaterialeOttico.SetnRifrazione(System.Double,System.Double,System.Double,System.Double,System.Double,System.Double)">
+            <summary>
+            Imposta i coefficienti della serie di Laurent
+            </summary>
+            <param name="A0"></param>
+            <param name="A1"></param>
+            <param name="A2"></param>
+            <param name="A3"></param>
+            <param name="A4"></param>
+            <param name="A5"></param>
+        </member>
+        <member name="M:Fred68.Tools.Engineering.MaterialeOttico.SetnRifrazione(System.Double[])">
+            <summary>
+            Imposta i coefficienti della serie di Laurent
+            </summary>
+            <param name="A">array double[6]: A0...A5</param>
+        </member>
+        <member name="M:Fred68.Tools.Engineering.MaterialeOttico.Plot(System.Drawing.Graphics,Fred68.Tools.Grafica.Finestra,System.Drawing.Pen)">
+            <summary>
+            Plot (non fa nulla)
+            </summary>
+            <param name="dc"></param>
+            <param name="fin"></param>
+            <param name="penna"></param>
+        </member>
+        <member name="M:Fred68.Tools.Engineering.MaterialeOttico.Display(Fred68.Tools.Grafica.DisplayList,System.Int32)">
+            <summary>
+            Aggiunge alla display list (non fa nulla)
+            </summary>
+            <param name="displaylist"></param>
+            <param name="penna"></param>
+        </member>
+        <member name="M:Fred68.Tools.Engineering.MaterialeOttico.TrovaIntersezione(Fred68.Tools.Matematica.Line2D)">
+            <summary>
+            Restituisce prima intersezione positiva con una linea (sempre null)
+            </summary>
+            <param name="lin"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Fred68.Tools.Engineering.MaterialeOttico.CalcolaRaggi(Fred68.Tools.Engineering.Raggio,Fred68.Tools.Engineering.MaterialeOttico)">
+            <summary>
+            Restituisce la lista di raggi (sempre nulla, non interagisce)
+            </summary>
+            <param name="rIncidente"></param>
+            <param name="ambiente"></param>
+            <returns></returns>
+        </member>
+        <member name="P:Fred68.Tools.Engineering.MaterialeOttico.nRifrazione">
+            <summary>
+            Indice di rifrazione (costante)
+            </summary>
+        </member>
+        <member name="T:Fred68.Tools.Engineering.CorpoOttico">
+            <summary> Corpo ottico </summary>
+        </member>
+        <member name="F:Fred68.Tools.Engineering.CorpoOttico.FrazioneEpsilon">
+            <summary>
+            Fattore moltiplicativo della dimensione caratteristica
+            per calcolare un punto di poco fuori dalla suerficie
+            </summary>
+        </member>
+        <member name="M:Fred68.Tools.Engineering.CorpoOttico.#ctor">
+            <summary>
+            Costruttore
+            </summary>
+        </member>
+        <member name="M:Fred68.Tools.Engineering.CorpoOttico.#ctor(System.String)">
+            <summary>
+            costruttore
+            </summary>
+            <param name="Nome"></param>
+        </member>
+        <member name="M:Fred68.Tools.Engineering.CorpoOttico.#ctor(Fred68.Tools.Engineering.MaterialeOttico)">
+            <summary>
+            Costruttore
+            </summary>
+            <param name="mat"></param>
+        </member>
+        <member name="M:Fred68.Tools.Engineering.CorpoOttico.#ctor(Fred68.Tools.Engineering.MaterialeOttico,System.String)">
+            <summary>
+            Costruttore
+            </summary>
+            <param name="mat"></param>
+            <param name="Nome"></param>
+        </member>
+        <member name="M:Fred68.Tools.Engineering.CorpoOttico.Validate">
+            <summary>
+            Verifica e corregge dove possibile
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Fred68.Tools.Engineering.CorpoOttico.Add(Fred68.Tools.Engineering.Contorno)">
+            <summary>
+            Aggiunge un tratto di contorno, controlla se connesso.
+            </summary>
+            <param name="contorno"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Fred68.Tools.Engineering.CorpoOttico.ClearContorni">
+            <summary>
+            Azzera la lista dei contorni
+            </summary>
+        </member>
+        <member name="M:Fred68.Tools.Engineering.CorpoOttico.TrovaIntersezioniPositive(Fred68.Tools.Matematica.Line2D)">
+            <summary>
+            Trova intersezioni con la linea, solo se dopo P1, e le ordina
+            </summary>
+            <param name="lin">Linea</param>
+            <returns></returns>
+        </member>
+        <member name="M:Fred68.Tools.Engineering.CorpoOttico.TrovaIntersezione(Fred68.Tools.Matematica.Line2D)">
+            <summary>
+            Trova la prima intersezione della linea con il corspo ottico, da P1 in poi, oppure null.
+            </summary>
+            <param name="lin">La linea</param>
+            <returns></returns>
+        </member>
+        <member name="M:Fred68.Tools.Engineering.CorpoOttico.CalcolaRaggi(Fred68.Tools.Engineering.Raggio,Fred68.Tools.Engineering.MaterialeOttico)">
+            <summary>
+            Funzione principale di calcolo ottico
+            </summary>
+            <param name="rIncidente"></param>
+            <param name="ambiente"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Fred68.Tools.Engineering.CorpoOttico.Contorno(Fred68.Tools.Matematica.Tratto)">
+            <summary>
+            Trova il contorno costituito dal tratto 
+            </summary>
+            <param name="tr">Tratto</param>
+            <returns></returns>
+        </member>
+        <member name="M:Fred68.Tools.Engineering.CorpoOttico.Plot(System.Drawing.Graphics,Fred68.Tools.Grafica.Finestra,System.Drawing.Pen)">
+            <summary>
+            Plot
+            </summary>
+            <param name="dc"></param>
+            <param name="fin"></param>
+            <param name="penna"></param>
+        </member>
+        <member name="M:Fred68.Tools.Engineering.CorpoOttico.Display(Fred68.Tools.Grafica.DisplayList,System.Int32)">
+            <summary>
+            Aggiunge alla display list
+            </summary>
+            <param name="displaylist"></param>
+            <param name="penna"></param>
+        </member>
+        <member name="M:Fred68.Tools.Engineering.CorpoOttico.CheckNumTratti">
+            <summary>
+            Controlla che vi siano almeno tre tratti di contorno
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Fred68.Tools.Engineering.CorpoOttico.CheckConnesso">
+            <summary>
+            Controlla se connesso
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Fred68.Tools.Engineering.CorpoOttico.CheckValidi">
+            <summary>
+            Controlla se tratti balidi
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Fred68.Tools.Engineering.CorpoOttico.CheckRifrazione">
+            <summary>
+            Controlla rifrazione
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Fred68.Tools.Engineering.CorpoOttico.CheckDimCar">
+            <summary>
+            Controlla che dimensione caratteristica non nulla
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Fred68.Tools.Engineering.CorpoOttico.EliminaIntersezioniDoppie(System.Collections.Generic.List{Fred68.Tools.Matematica.Intersection})">
+            <summary>
+            Elimina intersezioni doppie e restituisce nuova lista
+            </summary>
+            <param name="li">Lista ORDINATA in base a t1</param>
+            <returns></returns>
+        </member>
+        <member name="M:Fred68.Tools.Engineering.CorpoOttico.CfrT1(Fred68.Tools.Matematica.Intersection,Fred68.Tools.Matematica.Intersection)">
+            <summary>
+            Delegate di confronto
+            </summary>
+            <param name="x"></param>
+            <param name="y"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Fred68.Tools.Engineering.CorpoOttico.CalcolaDimCar">
+            <summary>
+            Calcola dimensione caratteristica
+            </summary>
+        </member>
+        <member name="M:Fred68.Tools.Engineering.CorpoOttico.Belongs(Fred68.Tools.Matematica.Point2D)">
+            <summary>
+            Restituisce la lista dei contorni del corpo cui appartiene il punto
+            </summary>
+            <param name="pt">Il punto</param>
+            <returns></returns>
+        </member>
+        <member name="M:Fred68.Tools.Engineering.CorpoOttico.CheckVertice(Fred68.Tools.Matematica.Point2D)">
+            <summary>
+            Verifica se pVertice e` un vertice del corpo ottico
+            </summary>
+            <param name="pVertice">Il punto</param>
+            <returns>Intersezione fittizia, contenente il rif. ai due tratti di contorno a cui appartiene</returns>
+        </member>
+        <member name="M:Fred68.Tools.Engineering.CorpoOttico.Tangenti(Fred68.Tools.Matematica.Tratto,Fred68.Tools.Matematica.Tratto)">
+            <summary>
+            Verifica se i due tratti sono tangenti all'estremo
+            </summary>
+            <param name="t1">Tratto 1</param>
+            <param name="t2">Tratto 2</param>
+            <returns></returns>
+        </member>
+        <member name="P:Fred68.Tools.Engineering.CorpoOttico.nRifrazione">
+            <summary>
+            Indice di rifrazione
+            </summary>
+        </member>
+        <member name="P:Fred68.Tools.Engineering.CorpoOttico.Materiale">
+            <summary>
+            Materiale ottico
+            </summary>
+        </member>
+        <member name="P:Fred68.Tools.Engineering.CorpoOttico.DimCaratteristica">
+            <summary>
+            Dimensione caratteristica
+            </summary>
+        </member>
+        <member name="T:Fred68.Tools.Engineering.SorgenteOttica">
+            <summary>Sorgente ottica </summary>
+        </member>
+        <member name="F:Fred68.Tools.Engineering.SorgenteOttica.lambda">
+            <summary> Lunghezza d'onda </summary>
+        </member>
+        <member name="F:Fred68.Tools.Engineering.SorgenteOttica.tipoSorgente">
+            <summary> Tipo di sorgente </summary>
+        </member>
+        <member name="F:Fred68.Tools.Engineering.SorgenteOttica.arco">
+            <summary> Arco (se sorgente puntiforme) </summary>
+        </member>
+        <member name="F:Fred68.Tools.Engineering.SorgenteOttica.lineaRaggio">
+            <summary>Origine e versore (se sorgente collimata)</summary>
+        </member>
+        <member name="F:Fred68.Tools.Engineering.SorgenteOttica.diametro">
+            <summary>Diametro (se sorgente collimata)</summary>
+        </member>
+        <member name="F:Fred68.Tools.Engineering.SorgenteOttica.divergenza">
+            <summary>Divergenza (se sorgente collimata). Angolo raggio laterale rispetto all'asse, in rad.</summary>
+        </member>
+        <member name="F:Fred68.Tools.Engineering.SorgenteOttica.nraggi">
+            <summary>Numero di raggi da generare </summary>
+        </member>
+        <member name="M:Fred68.Tools.Engineering.SorgenteOttica.#ctor">
+            <summary>Costruttore vuoto</summary>
+        </member>
+        <member name="M:Fred68.Tools.Engineering.SorgenteOttica.#ctor(Fred68.Tools.Engineering.SorgenteOttica)">
+            <summary>Costruttore di copia</summary>
+            <param name="sorgente"></param>
+        </member>
+        <member name="M:Fred68.Tools.Engineering.SorgenteOttica.#ctor(System.String,Fred68.Tools.Matematica.Point2D,System.Double,System.Boolean,System.Double,System.Double,System.Double,System.Int32)">
+            <summary>
+            Costruttore per sorgente collimata
+            </summary>
+            <param name="nome">Nome oggetto</param>
+            <param name="origine">Punto di origine</param>
+            <param name="angolo">Angolo dell'asse del raggio</param>
+            <param name="radianti">true se in radianti</param>
+            <param name="diametro">Diametro del fascio</param>
+            <param name="divergenza">Divergenza in radianti (tra raggio estremo ed asse)</param>
+            <param name="lambda">Lunghezza d'onda</param>
+            <param name="nraggi">Numero di raggi </param>
+        </member>
+        <member name="M:Fred68.Tools.Engineering.SorgenteOttica.CreaRaggi">
+            <summary>
+            Crea la lista dei raggi generati dalla sorgente ottica
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Fred68.Tools.Engineering.SorgenteOttica.Validate">
+            <summary>
+            Validate (da classe base astratta)
+            </summary>
+        </member>
+        <member name="M:Fred68.Tools.Engineering.SorgenteOttica.Plot(System.Drawing.Graphics,Fred68.Tools.Grafica.Finestra,System.Drawing.Pen)">
+            <summary>
+            Da completare
+            </summary>
+            <param name="dc"></param>
+            <param name="fin"></param>
+            <param name="penna"></param>
+        </member>
+        <member name="M:Fred68.Tools.Engineering.SorgenteOttica.Display(Fred68.Tools.Grafica.DisplayList,System.Int32)">
+            <summary>
+            Da compleatare
+            </summary>
+            <param name="displaylist"></param>
+            <param name="penna"></param>
+        </member>
+        <member name="M:Fred68.Tools.Engineering.SorgenteOttica.TrovaIntersezione(Fred68.Tools.Matematica.Line2D)">
+            <summary>
+            Restituisce prima intersezione positiva con una linea (sempre null)
+            </summary>
+            <param name="lin"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Fred68.Tools.Engineering.SorgenteOttica.CalcolaRaggi(Fred68.Tools.Engineering.Raggio,Fred68.Tools.Engineering.MaterialeOttico)">
+            <summary>
+            Restituisce la lista di raggi (sempre nulla, non interagisce)
+            </summary>
+            <param name="rIncidente"></param>
+            <param name="ambiente"></param>
+            <returns></returns>
+        </member>
+        <member name="P:Fred68.Tools.Engineering.SorgenteOttica.Sorgente">
+            <summary>
+            Tipo di sorgente
+            </summary>
+        </member>
+        <member name="P:Fred68.Tools.Engineering.SorgenteOttica.Origine">
+            <summary>
+            Punto di origine
+            </summary>
+        </member>
+        <member name="P:Fred68.Tools.Engineering.SorgenteOttica.Direzione">
+            <summary>
+            Versore di direzione
+            </summary>
+        </member>
+        <member name="P:Fred68.Tools.Engineering.SorgenteOttica.Diametro">
+            <summary>
+            Diametro del fascio
+            </summary>
+        </member>
+        <member name="P:Fred68.Tools.Engineering.SorgenteOttica.Divergenza">
+            <summary>
+            Divergenza in radianti
+            </summary>
+        </member>
+        <member name="P:Fred68.Tools.Engineering.SorgenteOttica.Lambda">
+            <summary>
+            Lunghezza d'onda in nm (1e-9)
+            </summary>
+        </member>
+        <member name="P:Fred68.Tools.Engineering.SorgenteOttica.nRaggi">
+            <summary>
+            Numero di raggi emessi
+            </summary>
+        </member>
+        <member name="T:Fred68.Tools.Engineering.SorgenteOttica.TipoSorgente">
+            <summary> Tipi di sorgente </summary>
+        </member>
+        <member name="F:Fred68.Tools.Engineering.SorgenteOttica.TipoSorgente.puntiforme">
+            <summary> sorgente puntiforme (non solo omnidirezionale) </summary>
+        </member>
+        <member name="F:Fred68.Tools.Engineering.SorgenteOttica.TipoSorgente.collimata">
+            <summary> sorgente collimata (con divergenza) </summary>
+        </member>
+        <member name="T:Fred68.Tools.Engineering.Ambiente">
+            <summary> Ambiente </summary>
+        </member>
+        <member name="M:Fred68.Tools.Engineering.Ambiente.#ctor">
+            <summary>
+            Costruttore
+            </summary>
+        </member>
+        <member name="M:Fred68.Tools.Engineering.Ambiente.CancellaOggetti">
+            <summary>
+            Svuota
+            </summary>
+        </member>
+        <member name="M:Fred68.Tools.Engineering.Ambiente.Add(Fred68.Tools.Engineering.OggettoOttico)">
+            <summary>
+            Aggiunge un oggetto
+            se e` valido e se il nome non esiste ancora
+            </summary>
+            <param name="ogg"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Fred68.Tools.Engineering.Ambiente.ListaNomi">
+            <summary>
+            Restuisce una stringa con i nomi degli oggetti contenuti
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Fred68.Tools.Engineering.Ambiente.GetOggetto(System.String)">
+            <summary>
+            Ottiene il riferimento ad un oggetto in base al nome
+            </summary>
+            <param name="nome"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Fred68.Tools.Engineering.Ambiente.ExistsOggetto(System.String)">
+            <summary>
+            Verifica se esiste un oggetto con quel nome
+            </summary>
+            <param name="nome"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Fred68.Tools.Engineering.Ambiente.Plot(System.Drawing.Graphics,Fred68.Tools.Grafica.Finestra,System.Drawing.Pen)">
+            <summary>
+            Plot
+            </summary>
+            <param name="dc"></param>
+            <param name="fin"></param>
+            <param name="penna"></param>
+        </member>
+        <member name="M:Fred68.Tools.Engineering.Ambiente.Display(Fred68.Tools.Grafica.DisplayList,System.Int32)">
+            <summary>
+            Aggiunge alla display list
+            </summary>
+            <param name="displaylist"></param>
+            <param name="penna"></param>
+        </member>
+        <member name="M:Fred68.Tools.Engineering.Ambiente.CalcolaRaggio(Fred68.Tools.Engineering.Raggio)">
+            <summary>
+            Calcola il percorso di un raggio
+            </summary>
+            <param name="rIncidente"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Fred68.Tools.Engineering.Ambiente.CalcolaRaggi">
+            <summary>
+            Calcola i raggi generati dalla sorgente
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:Fred68.Tools.Engineering.Ambiente.Matrice">
+            <summary>
+            Materiale ottico della matrice
+            </summary>
+        </member>
+        <member name="P:Fred68.Tools.Engineering.Ambiente.NumeroOggetti">
+            <summary>
+            Numero di oggetti
+            </summary>
+        </member>
+        <member name="T:Fred68.Tools.Engineering.Lente">
+            <summary> Classe Lente </summary>
+        </member>
+        <member name="F:Fred68.Tools.Engineering.Lente.epsilon">
+            <summary>
+            valore minimo
+            </summary>
+        </member>
+        <member name="F:Fred68.Tools.Engineering.Lente.et">
+            <summary>
+            Edge thickness
+            </summary>
+        </member>
+        <member name="F:Fred68.Tools.Engineering.Lente.ct">
+            <summary>
+            Center thickness
+            </summary>
+        </member>
+        <member name="F:Fred68.Tools.Engineering.Lente.n">
+            <summary>
+            Indice di rifrazione
+            </summary>
+        </member>
+        <member name="F:Fred68.Tools.Engineering.Lente.d">
+            <summary>
+            Diametro lente
+            </summary>
+        </member>
+        <member name="F:Fred68.Tools.Engineering.Lente.rl">
+            <summary>
+            Raggio lente
+            </summary>
+        </member>
+        <member name="F:Fred68.Tools.Engineering.Lente.tipo1">
+            <summary>
+            Superficie di ingresso
+            </summary>
+        </member>
+        <member name="F:Fred68.Tools.Engineering.Lente.r1">
+            <summary>
+            Raggio di ingresso
+            </summary>
+        </member>
+        <member name="F:Fred68.Tools.Engineering.Lente.tipo2">
+            <summary>
+            Superficie di uscita
+            </summary>
+        </member>
+        <member name="F:Fred68.Tools.Engineering.Lente.r2">
+            <summary>
+            Raggio di uscita
+            </summary>
+        </member>
+        <member name="F:Fred68.Tools.Engineering.Lente.xcc1">
+            <summary>
+            Centri di curvatura
+            </summary>
+        </member>
+        <member name="F:Fred68.Tools.Engineering.Lente.xcc2">
+            <summary>
+            Centri di curvatura
+            </summary>
+        </member>
+        <member name="F:Fred68.Tools.Engineering.Lente.rc1">
+            <summary>
+            Raggi di curvatura con segno
+            </summary>
+        </member>
+        <member name="F:Fred68.Tools.Engineering.Lente.rc2">
+            <summary>
+            Raggi di curvatura con segno
+            </summary>
+        </member>
+        <member name="F:Fred68.Tools.Engineering.Lente.xlo1">
+            <summary>
+            Ascisse intersezione superfici lente con asse ottico
+            </summary>
+        </member>
+        <member name="F:Fred68.Tools.Engineering.Lente.xlo2">
+            <summary>
+            Ascisse intersezione superfici lente con asse ottico
+            </summary>
+        </member>
+        <member name="M:Fred68.Tools.Engineering.Lente.#ctor">
+            <summary>
+            Costruttore
+            </summary>
+        </member>
+        <member name="M:Fred68.Tools.Engineering.Lente.#ctor(Fred68.Tools.Engineering.Lente)">
+            <summary>
+            Costruttore di copia
+            </summary>
+            <param name="lente"></param>
+        </member>
+        <member name="M:Fred68.Tools.Engineering.Lente.Validate">
+            <summary>
+            Ricalcola
+            </summary>
+        </member>
+        <member name="M:Fred68.Tools.Engineering.Lente.SalvaStream(System.IO.StreamWriter)">
+            <summary>
+            Salva su stream
+            </summary>
+            <param name="stream">StreamWriter</param>
+            <returns></returns>
+        </member>
+        <member name="M:Fred68.Tools.Engineering.Lente.CaricaStream(System.IO.StreamReader)">
+            <summary>
+            Carica da stream
+            </summary>
+            <param name="stream">StreamReader</param>
+            <returns></returns>
+        </member>
+        <member name="M:Fred68.Tools.Engineering.Lente.GetNomeMateriale">
+            <summary>
+            Nome descrittivo del materiale
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Fred68.Tools.Engineering.Lente.GetNomeCorpoOttico">
+            <summary>
+            Nome descrittovo dell'oggetto
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Fred68.Tools.Engineering.Lente.CreaCorpoOttico(Fred68.Tools.Matematica.Transform2D)">
+            <summary>
+            Crea corpo ottico dalla lente nella posizione standard
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Fred68.Tools.Engineering.Lente.Plot(System.Drawing.Graphics,Fred68.Tools.Grafica.Finestra,System.Drawing.Pen)">
+            <summary>
+            DA SCRIVERE
+            </summary>
+            <param name="dc"></param>
+            <param name="fin"></param>
+            <param name="penna"></param>
+        </member>
+        <member name="M:Fred68.Tools.Engineering.Lente.Display(Fred68.Tools.Grafica.DisplayList,System.Int32)">
+            <summary>
+            DA SCRIVERE
+            </summary>
+            <param name="displaylist"></param>
+            <param name="penna"></param>
+        </member>
+        <member name="M:Fred68.Tools.Engineering.Lente.TrovaIntersezione(Fred68.Tools.Matematica.Line2D)">
+            <summary>
+            Restituisce prima intersezione positiva con una linea (sempre null)
+            Interagisce con una linea (raggio) se trasformata in CorpoOttico
+            </summary>
+            <param name="lin"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Fred68.Tools.Engineering.Lente.CalcolaRaggi(Fred68.Tools.Engineering.Raggio,Fred68.Tools.Engineering.MaterialeOttico)">
+            <summary>
+            Restituisce la lista di raggi (sempre nulla, non interagisce)
+            </summary>
+            <param name="rIncidente"></param>
+            <param name="ambiente"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Fred68.Tools.Engineering.Lente.TipoSuperficie">
+            <summary>Tipi di superficie</summary>
+        </member>
+        <member name="F:Fred68.Tools.Engineering.Lente.TipoSuperficie.piana">
+            <summary>Superficie piana</summary>
+        </member>
+        <member name="F:Fred68.Tools.Engineering.Lente.TipoSuperficie.convessa">
+            <summary>Convessa</summary>
+        </member>
+        <member name="F:Fred68.Tools.Engineering.Lente.TipoSuperficie.concava">
+            <summary>Concava</summary>
+        </member>
+        <member name="T:Lente01.Properties.Resources">
+            <summary>
+              A strongly-typed resource class, for looking up localized strings, etc.
+            </summary>
+        </member>
+        <member name="P:Lente01.Properties.Resources.ResourceManager">
+            <summary>
+              Returns the cached ResourceManager instance used by this class.
+            </summary>
+        </member>
+        <member name="P:Lente01.Properties.Resources.Culture">
+            <summary>
+              Overrides the current thread's CurrentUICulture property for all
+              resource lookups using this strongly typed resource class.
+            </summary>
+        </member>
+        <member name="P:Lente01.Properties.Resources.AboutAutore">
+            <summary>
+              Looks up a localized string similar to by Fc Soft.
+            </summary>
+        </member>
+        <member name="P:Lente01.Properties.Resources.AboutTitolo">
+            <summary>
+              Looks up a localized string similar to Helmut.
+            </summary>
+        </member>
+        <member name="P:Lente01.Properties.Resources.AboutVersione">
+            <summary>
+              Looks up a localized string similar to v.0.0a in costruzione .
+            </summary>
+        </member>
+        <member name="P:Lente01.Properties.Resources.FormLenteTitolo">
+            <summary>
+              Looks up a localized string similar to Modifica lente.
+            </summary>
+        </member>
+        <member name="P:Lente01.Properties.Resources.FormSorgenteTitolo">
+            <summary>
+              Looks up a localized string similar to Modifica sorgente.
+            </summary>
+        </member>
+        <member name="P:Lente01.Properties.Resources.LenteNonValida">
+            <summary>
+              Looks up a localized string similar to Lente non realizzabile, valori errati !.
+            </summary>
+        </member>
+        <member name="P:Lente01.Properties.Resources.LenteValida">
+            <summary>
+              Looks up a localized string similar to Lente con valori corretti.
+            </summary>
+        </member>
+        <member name="P:Lente01.Properties.Resources.SorgenteNonValida">
+            <summary>
+              Looks up a localized string similar to Sorgente non corretta !.
+            </summary>
+        </member>
+        <member name="P:Lente01.Properties.Resources.SorgenteValida">
+            <summary>
+              Looks up a localized string similar to Sorgente con valori corretti.
+            </summary>
+        </member>
+        <member name="P:Lente01.Properties.Resources.Uscita">
+            <summary>
+              Looks up a localized string similar to Uscire dal programma ?.
+            </summary>
+        </member>
+        <member name="P:Lente01.Properties.Resources.UscitaTitolo">
+            <summary>
+              Looks up a localized string similar to Confermare l&apos;uscita....
+            </summary>
+        </member>
+        <member name="M:Lente01.Program.Main">
+            <summary>
+            The main entry point for the application.
+            </summary>
+        </member>
+        <member name="F:Lente01.Lente01.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:Lente01.Lente01.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:Lente01.Lente01.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="T:Fred68.Tools.Matematica.Arc2D">
+            <summary> Arco </summary>
+        </member>
+        <member name="M:Fred68.Tools.Matematica.Arc2D.#ctor">
+            <summary>
+            Arco
+            </summary>
+        </member>
+        <member name="M:Fred68.Tools.Matematica.Arc2D.#ctor(Fred68.Tools.Matematica.Point2D,System.Double,System.Double,System.Double)">
+            <summary>
+            Arco
+            </summary>
+            <param name="center">Centro</param>
+            <param name="radius">Raggio</param>
+            <param name="alfaIni">Angolo iniziale</param>
+            <param name="alfaFin">Angolo finale</param>
+        </member>
+        <member name="M:Fred68.Tools.Matematica.Arc2D.#ctor(Fred68.Tools.Matematica.Point2D,System.Double)">
+            <summary>
+            Cerchio
+            </summary>
+            <param name="center">Centro</param>
+            <param name="radius">Raggio</param>
+        </member>
+        <member name="M:Fred68.Tools.Matematica.Arc2D.#ctor(System.Double,System.Double,System.Double,System.Double,System.Double)">
+            <summary>
+            Arco
+            </summary>
+            <param name="cx">x del centro</param>
+            <param name="cy">y del centro</param>
+            <param name="radius">Raggio</param>
+            <param name="alfaIni">Angolo iniziale</param>
+            <param name="alfaFin">Angolo finale</param>
+        </member>
+        <member name="M:Fred68.Tools.Matematica.Arc2D.#ctor(System.Double,System.Double,System.Double)">
+            <summary>
+            Cerchio
+            </summary>
+            <param name="cx">x del centro</param>
+            <param name="cy">y del centro</param>
+            <param name="radius">Raggio</param>
+        </member>
+        <member name="M:Fred68.Tools.Matematica.Arc2D.#ctor(Fred68.Tools.Matematica.Point2D,System.Double,Fred68.Tools.Matematica.Point2D,Fred68.Tools.Matematica.Point2D,System.Boolean)">
+            <summary>
+            Arco per centro e due punti
+            </summary>
+            <param name="center">Centro</param>
+            <param name="radius">Raggio (opzionale)</param>
+            <param name="pIni">Punto iniziale</param>
+            <param name="pFin">Punto finale</param>
+            <param name="useRadius">true: usa il raggio, false: lo calcola in base ai punti</param>
+        </member>
+        <member name="M:Fred68.Tools.Matematica.Arc2D.#ctor(Fred68.Tools.Matematica.Point2D,Fred68.Tools.Matematica.Point2D)">
+            <summary>
+            Cerchio per centro e un punto
+            </summary>
+            <param name="center">Centro</param>
+            <param name="point">Punto sulla circonferenza</param>
+        </member>
+        <member name="M:Fred68.Tools.Matematica.Arc2D.#ctor(Fred68.Tools.Matematica.Point2D,Fred68.Tools.Matematica.Point2D,Fred68.Tools.Matematica.Point2D)">
+            <summary>
+            Arco per centro e due punti 
+            </summary>
+            <param name="center">Centro</param>
+            <param name="pIni">Punto iniziale</param>
+            <param name="pFin">Punto finale</param>
+        </member>
+        <member name="M:Fred68.Tools.Matematica.Arc2D.#ctor(Fred68.Tools.Matematica.Point2D,Fred68.Tools.Matematica.Point2D,Fred68.Tools.Matematica.Point2D,Fred68.Tools.Matematica.Arc2D.TrePunti)">
+            <summary>
+            Arco per punti estremi e centro oppure terzo punto.
+            Mantiene invariati gli oggetti pIni e pFin
+            </summary>
+            <param name="pIni">punto iniziale (mantenuto invariato)</param>
+            <param name="pFin">punto finale (mantenuto invariato)</param>
+            <param name="pCenter_or_3dPoint">centro o terzo punti</param>
+            <param name="trepunti">TrePunti.tipo</param>
+        </member>
+        <member name="M:Fred68.Tools.Matematica.Arc2D.Validate">
+            <summary>
+            Verifica e ricalcola
+            </summary>
+        </member>
+        <member name="M:Fred68.Tools.Matematica.Arc2D.Alfa(Fred68.Tools.Matematica.Point2D,System.Double@)">
+            <summary>
+            Angolo di un punto qualunque rispetto al centro
+            </summary>
+            <param name="p">Punto</param>
+            <param name="alfa">Alfa (parametro out)</param>
+            <returns>false se errore</returns>
+        </member>
+        <member name="M:Fred68.Tools.Matematica.Arc2D.Point(System.Double)">
+            <summary>
+            Punto appartenente all'arco, con angolo alfa
+            oppure null se alfa non appartiene all'arco
+            </summary>
+            <param name="alfa">Angolo</param>
+            <returns>Il punto</returns>
+        </member>
+        <member name="M:Fred68.Tools.Matematica.Arc2D.Belongs(System.Double)">
+            <summary>
+            Verifica se l'angolo appartiene all'arco
+            </summary>
+            <param name="alfa">Angolo</param>
+            <returns>true se appartiene</returns>
+        </member>
+        <member name="M:Fred68.Tools.Matematica.Arc2D.Belongs(Fred68.Tools.Matematica.Point2D,System.Boolean)">
+            <summary>
+            Verifica se il punto appartiene all'arco
+            </summary>
+            <param name="p">Punto</param>
+            <param name="bInside">true se richiede appartenenza</param>
+            <returns>true se appartiene</returns>
+        </member>
+        <member name="M:Fred68.Tools.Matematica.Arc2D.ToString">
+            <summary>
+            ToString()
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Fred68.Tools.Matematica.Arc2D.Plot(System.Drawing.Graphics,Fred68.Tools.Grafica.Finestra,System.Drawing.Pen)">
+            <summary>
+            Plot
+            </summary>
+            <param name="dc"></param>
+            <param name="fin"></param>
+            <param name="penna"></param>
+        </member>
+        <member name="M:Fred68.Tools.Matematica.Arc2D.Display(Fred68.Tools.Grafica.DisplayList,System.Int32)">
+            <summary>
+            Aggiunge alla display list
+            </summary>
+            <param name="displaylist"></param>
+            <param name="penna"></param>
+        </member>
+        <member name="P:Fred68.Tools.Matematica.Arc2D.Center">
+            <summary>
+            Centro
+            </summary>
+        </member>
+        <member name="P:Fred68.Tools.Matematica.Arc2D.Radius">
+            <summary>
+            Raggio
+            </summary>
+        </member>
+        <member name="P:Fred68.Tools.Matematica.Arc2D.IsValid">
+            <summary>
+            Valido
+            </summary>
+        </member>
+        <member name="P:Fred68.Tools.Matematica.Arc2D.IsCircle">
+            <summary>
+            Se e` un cerchio
+            </summary>
+        </member>
+        <member name="P:Fred68.Tools.Matematica.Arc2D.PIni">
+            <summary>
+            Punto iniziale
+            </summary>
+        </member>
+        <member name="P:Fred68.Tools.Matematica.Arc2D.PFin">
+            <summary>
+            Punto finale
+            </summary>
+        </member>
+        <member name="P:Fred68.Tools.Matematica.Arc2D.AlfaIni">
+            <summary>
+            Angolo iniziale in radianti tra -PI e PI
+            </summary>
+        </member>
+        <member name="P:Fred68.Tools.Matematica.Arc2D.AlfaFin">
+            <summary>
+            Angolo finale in radianti tra -PI e PI
+            </summary>
+        </member>
+        <member name="P:Fred68.Tools.Matematica.Arc2D.pStart">
+            <summary>
+            Punto iniziale
+            </summary>
+        </member>
+        <member name="P:Fred68.Tools.Matematica.Arc2D.pEnd">
+            <summary>
+            Punto finale
+            </summary>
+        </member>
+        <member name="P:Fred68.Tools.Matematica.Arc2D.P12">
+            <summary>
+            Array con punto iniziale e finale
+            </summary>
+        </member>
+        <member name="T:Fred68.Tools.Matematica.Arc2D.TrePunti">
+            <summary>
+            Tipo di arco per tre punti richiesto
+            </summary>
+        </member>
+        <member name="T:Fred68.Tools.Grafica.Finestra">
+            <summary> Finestra con window e viewport </summary>
+        </member>
+        <member name="M:Fred68.Tools.Grafica.Finestra.#ctor">
+            <summary>
+            Costruttore
+            </summary>
+        </member>
+        <member name="M:Fred68.Tools.Grafica.Finestra.Set(Fred68.Tools.Matematica.Point2D,Fred68.Tools.Matematica.Point2D)">
+            <summary>
+            Imposta Window
+            </summary>
+            <param name="pt1"></param>
+            <param name="pt2"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Fred68.Tools.Grafica.Finestra.Set(System.Double,System.Double,System.Double,System.Double)">
+            <summary>
+            Imposta Window
+            </summary>
+            <param name="x1"></param>
+            <param name="y1"></param>
+            <param name="x2"></param>
+            <param name="y2"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Fred68.Tools.Grafica.Finestra.Set(System.Drawing.Point,System.Drawing.Point)">
+            <summary>
+            Imposta Wiewport
+            </summary>
+            <param name="pt1"></param>
+            <param name="pt2"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Fred68.Tools.Grafica.Finestra.Set(System.Int32,System.Int32,System.Int32,System.Int32)">
+            <summary>
+            Imposta viewport
+            </summary>
+            <param name="x1"></param>
+            <param name="y1"></param>
+            <param name="x2"></param>
+            <param name="y2"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Fred68.Tools.Grafica.Finestra.RicalcolaFinestra">
+            <summary>
+            Ricalcola parametri e finestra
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Fred68.Tools.Grafica.Finestra.ZoomOut">
+            <summary>
+            Zoom out
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Fred68.Tools.Grafica.Finestra.ZoomIn">
+            <summary>
+            Zoom in
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Fred68.Tools.Grafica.Finestra.PanDx">
+            <summary>
+            Pan a destra
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Fred68.Tools.Grafica.Finestra.PanSx">
+            <summary>
+            Pan a sinistra
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Fred68.Tools.Grafica.Finestra.PanSu">
+            <summary>
+            Pan in su
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Fred68.Tools.Grafica.Finestra.PanGiu">
+            <summary>
+            Pan in giu`
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Fred68.Tools.Grafica.Finestra.Get(Fred68.Tools.Matematica.Point2D)">
+            <summary>
+            Ottiene il punto corrispondente della viewport
+            </summary>
+            <param name="P">Punto della Window</param>
+            <returns></returns>
+        </member>
+        <member name="M:Fred68.Tools.Grafica.Finestra.Get(System.Drawing.Point)">
+            <summary>
+            Ottiene il punto corrispondente della Window
+            </summary>
+            <param name="p">Punto della Viewport</param>
+            <returns></returns>
+        </member>
+        <member name="T:Fred68.Tools.Grafica.Finestra.TipoScala">
+            <summary>
+            Tipo di scaling
+            </summary>
+        </member>
+        <member name="T:Fred68.Tools.Matematica.Point2D">
+            <summary> Point2D class </summary>
+        </member>
+        <member name="M:Fred68.Tools.Matematica.Point2D.#ctor">
+            <summary>
+            Punto
+            </summary>
+        </member>
+        <member name="M:Fred68.Tools.Matematica.Point2D.#ctor(Fred68.Tools.Matematica.MatrixInfo)">
+            <summary>
+            Punto
+            </summary>
+            <param name="matrixinfo">Tipo di matrice</param>
+        </member>
+        <member name="M:Fred68.Tools.Matematica.Point2D.#ctor(Fred68.Tools.Matematica.Point2D,System.Boolean)">
+            <summary>
+            Punto (copia di altro punto)
+            </summary>
+            <param name="m">Matrice originaria</param>
+            <param name="copy">true: copia i dati</param>
+        </member>
+        <member name="M:Fred68.Tools.Matematica.Point2D.#ctor(System.Double,System.Double)">
+            <summary>
+            Punto
+            </summary>
+            <param name="x">Coordinata x</param>
+            <param name="y">Coordinata y</param>
+        </member>
+        <member name="M:Fred68.Tools.Matematica.Point2D.#ctor(System.Double,System.Double,System.Boolean)">
+            <summary>
+            Punto
+            </summary>
+            <param name="length">Modulo</param>
+            <param name="angolo">Angolo</param>
+            <param name="radianti">true: radianti, false: gradi</param>
+        </member>
+        <member name="M:Fred68.Tools.Matematica.Point2D.Normalize">
+            <summary>
+            Normalizza il vettore, se possibile
+            </summary>
+            <returns>true se avvenuta normalizzazione</returns>
+        </member>
+        <member name="M:Fred68.Tools.Matematica.Point2D.Mod">
+            <summary>
+            Lunghezza (modulo)
+            </summary>
+            <returns>Il modulo</returns>
+        </member>
+        <member name="M:Fred68.Tools.Matematica.Point2D.Alfa(System.Boolean)">
+            <summary>
+            Angolo (fase)
+            </summary>
+            <param name="radianti">true: radianti, false: gradi</param>
+            <returns>L'angolo calcolato</returns>
+        </member>
+        <member name="M:Fred68.Tools.Matematica.Point2D.Versor">
+            <summary>
+            Versore (modulo unitario) parallelo
+            </summary>
+            <returns>Il versore o [0,0] se errore</returns>
+        </member>
+        <member name="M:Fred68.Tools.Matematica.Point2D.Normal">
+            <summary>
+            Versore normale (ruotato +90 gradi)
+            </summary>
+            <returns>Il vettore perpendicolare, normalizzato a modulo unitario</returns>
+        </member>
+        <member name="M:Fred68.Tools.Matematica.Point2D.op_Addition(Fred68.Tools.Matematica.Point2D,Fred68.Tools.Matematica.Point2D)">
+            <summary>
+            Somma
+            </summary>
+            <param name="sx"></param>
+            <param name="dx"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Fred68.Tools.Matematica.Point2D.op_Subtraction(Fred68.Tools.Matematica.Point2D,Fred68.Tools.Matematica.Point2D)">
+            <summary>
+            Differenza
+            </summary>
+            <param name="sx"></param>
+            <param name="dx"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Fred68.Tools.Matematica.Point2D.op_ExclusiveOr(Fred68.Tools.Matematica.Point2D,Fred68.Tools.Matematica.Point2D)">
+            <summary>
+            Prodotto scalare
+            </summary>
+            <param name="sx"></param>
+            <param name="dx"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Fred68.Tools.Matematica.Point2D.op_Multiply(Fred68.Tools.Matematica.Point2D,System.Double)">
+            <summary>
+            Prodotto Punto * numero
+            </summary>
+            <param name="sx"></param>
+            <param name="dx"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Fred68.Tools.Matematica.Point2D.op_Multiply(System.Double,Fred68.Tools.Matematica.Point2D)">
+            <summary>
+            Prodotto numero * Punto
+            </summary>
+            <param name="sx"></param>
+            <param name="dx"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Fred68.Tools.Matematica.Point2D.op_Division(Fred68.Tools.Matematica.Point2D,System.Double)">
+            <summary>
+            Quoziente Punto / numero (Matrixinfo errore se divisione per zero)
+            </summary>
+            <param name="sx"></param>
+            <param name="dx"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Fred68.Tools.Matematica.Point2D.op_UnaryNegation(Fred68.Tools.Matematica.Point2D)">
+            <summary>
+            Cambio di segno
+            </summary>
+            <param name="dx"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Fred68.Tools.Matematica.Point2D.ToString">
+            <summary>
+            ToString()
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Fred68.Tools.Matematica.Point2D.Scrivi(System.IO.StreamWriter)">
+            <summary> </summary>
+            <param name="sw"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Fred68.Tools.Matematica.Point2D.Leggi(System.IO.StreamReader)">
+            <summary></summary>
+            <param name="sr"></param>
+            <returns></returns>
+        </member>
+        <member name="P:Fred68.Tools.Matematica.Point2D.x">
+            <summary>
+            Coordinata x
+            </summary>
+        </member>
+        <member name="P:Fred68.Tools.Matematica.Point2D.y">
+            <summary>
+            Coordinata y
+            </summary>
+        </member>
+        <member name="T:Fred68.Tools.Matematica.LinearSys">
+            <summary> LinearSys solve a linear system with Gauss method (reduction) </summary>
+        </member>
+    </members>
+</doc>

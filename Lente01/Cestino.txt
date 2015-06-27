@@ -1,0 +1,423 @@
+
+-------------------------------------------------------------------------
+ IL FILE CONTIENE PARTI DI CODICE O ALTRE INFORMAZIONI
+ SUPERATE, MODIFICATE E NON PIU` UTILIZZATE
+ -------------------------------------------------------------------------
+
+
+public static bool Intersection (Line2D l1, Line2D l2, out Point2D intersect, out double t1, out double t2) // ELIMINARE 
+	{
+	LinearSys ls = new LinearSys();			// Sistema di equazioni lineari
+	Matrix a = new Matrix(2,2);				// Imposta matrice e vettore
+	a.Set(	0,	0, l1.P2.x - l1.P1.x );
+	a.Set(	0,	1, l2.P1.x - l2.P2.x );
+	a.Set(	1,	0, l1.P2.y - l1.P1.y );
+	a.Set(	1,	1, l2.P1.y - l2.P2.y );
+	Matrix b = new Matrix(2, 1);
+	b.Set( 0, 0, l2.P1.x - l1.P1.x );
+	b.Set( 1, 0, l2.P1.y - l1.P1.y );
+	Matrix x = ls.Solve(a , b);				// Risolve
+	if(x.MatrixInfo == MatrixInfo.Valid)
+		{
+		t1 = x.Get(0, 0);					// Estrae i parametri delle due rette
+		t2 = x.Get(1, 0);
+		Point2D i1, i2;
+		i1 = l1.P1 + t1 * (l1.P2 - l1.P1);	// Calcola i due punti
+		i2 = l2.P1 + t2 * (l2.P2 - l2.P1);
+		if(Function2D.Distance(i1, i2) <= Function2D.CoincidenceDistance)
+		    {
+		    intersect = Function2D.Midpoint(i1, i2);
+		    return true;
+		    }
+		}
+	intersect = new Point2D();
+	t1 = t2 = 0.0;
+	return false;
+	} 
+ 
+
+public static int Intersection (Line2D l1, Arc2D a2, out Point2D[] intersect, out double[] t, out double[] a) // ELIMINARE 
+	{
+	t = new double[2];
+	a = new double[2];
+	intersect = new Point2D[2];
+
+	// P = P1 + t (P2 - P1)															equazione della retta del segmento
+	// P = C + r (cos a, sin a) oppure												equazione della circonferenza
+	// || P - C ||^2 = r^2															altra equazione della circonferenza
+	// || P1 - C + t (P2 - P1) ||^2 = r^2											Intersezione: punto su entrambi
+	// A = P1 - C; B = P2 - P1														Sostituzioni
+	// || V || = V.x^2 + V.y^2 = V ^ V (scalare)									Definizione di modulo
+	// || A + t B ||^2 = r^2														Intersezione, sostituendo...
+	// (A.x + t B.x)^2 + (A.y + t B.y)^2 - r^2 = 0									...
+	// A.x^2 + B.x^2 + t^2 (B.x^2 + B.y^2) + 2 t (A.x B.x + A.y B.y) - r^2 = 0		...
+	// t^2(B^B) + 2 t (A^B) + A^A - r^2 = 0											Equazione di secondo grado da risolvere
+	// a = B^B b = 2*A^B c = A^A - r^2
+
+	Point2D A = l1.P1 - a2.Center;
+	Point2D B = l1.P2 - l1.P1;
+	double r = a2.Radius;
+
+	double aEq, bEq, cEq, dEq24, dEq2;				// Calcola con formula ridotta
+	aEq = B^B;
+	bEq = A^B;
+	cEq = (A^A) - r*r;			
+	dEq24 = bEq*bEq - aEq*cEq;						// Delta^2/4 formula ridotta
+	if(dEq24 < 0.0)
+		{
+		return 0;									// Delta < 0: nessuna soluzione
+		}
+	if(Math.Abs(dEq24) < Function2D.epsilon)		// Delta = 0
+		{
+		t[0] = -bEq / aEq;
+		intersect[0] = l1.P1 + t[0] * (l1.P2 - l1.P1);
+		return 1;
+		}
+	dEq2 = Math.Sqrt(dEq24);						// ATTENZIONE: PRIMA DI INSERIRE I VALORI, VERIFICARE CHE
+	t[0] = (-bEq - dEq2) / aEq;						// APPARTENGANO ALL'ARCO/CERCHIO...
+	t[1] = (-bEq + dEq2) / aEq;
+	intersect[0] = l1.P1 + t[0] * (l1.P2 - l1.P1);
+	intersect[1] = l1.P1 + t[1] * (l1.P2 - l1.P1);
+	return 0;
+	}
+
+
+
+
+	CORPO OTTICO SENZA LINKED LIST
+		#region FUNZIONI
+		/// <summary>
+		/// Verifica e corregge dove possibile
+		/// </summary>
+		/// <returns></returns>
+		public void Validate() 
+			{
+			bValid = true;
+			Check[] ops = {CheckRifrazione, CheckNumTratti, CheckValidi, CheckConnesso};	// Array di delegate
+			// Mancano controlli di:
+			// punto interno
+			// contorno che interseca se stesso
+			foreach( Check op in ops)						// Chiama la funzione
+				{
+				if(!op())									// Se errore...
+					{
+					bValid = false;							// ...azzera il flag
+					break;
+					}
+				}
+			}
+		public bool Add(Contorno contorno)
+			{
+			bool ok = false;
+			if(contorno != null)
+				{
+				contorni.Add(contorno);
+				ok = true;
+				}
+			return ok;
+			}
+	
+		#region PROTECTED FUNC
+		protected bool CheckNumTratti() 
+			{
+			if(contorni.Count < CorpoOttico.nTrattiMin)		// Controlla contorni.Count >= 3
+				return false;
+			else
+				return true;
+			}
+		protected bool CheckConnesso() 
+			{
+			bool connesso = true;										// Imposta flag come se tutto connesso.
+			Contorno c1, c2;
+			List<Contorno>.Enumerator en = contorni.GetEnumerator();
+			c1 = en.Current;											// Legge il primo contorno
+			while((en.MoveNext()) && (c1!=null))						// Ripete finche` esiste il successivo (e c1 e` valido)
+				{
+				c2 = en.Current;										// Legge il contorno successivo
+				bool found = false;										
+				if( Function2D.AreConnected(c1.Tratto,c2.Tratto))		// Se i due contorni sono connessi, imposta il flag
+					found = true;
+				c1 = c2;												// Imposta per iterazione successiva
+				if(!found)												// Se non trovata intersezione in una iterazione qualunque...
+					{
+					connesso = false;									// imposta a disconnesso e...
+					c1 = null;											// ...azzera c1, per uscire dal ciclo
+					}
+				}
+			if(connesso)												// Ultimo controllo, tra l'ultimo ed il primo
+				{
+				c1=contorni[contorni.Count - 1];
+				c2=contorni[0];
+				if( !Function2D.AreConnected(c1.Tratto,c2.Tratto))		// Se non connessi, azzera il flag
+					connesso = false;
+				}
+			return connesso;
+			}
+		protected bool CheckValidi() 
+			{
+			return !contorni.Exists(r => r.Tratto.IsValid == false);
+			}
+		protected bool CheckRifrazione() 
+			{
+			if(n <= Double.Epsilon)							// Controlla n e corregge
+				n = 1.0;
+			return true;
+			}
+		#endregion
+		#endregion 
+
+
+		In DisplayList:
+		#if(false)
+			if(tratto.GetType() == typeof(Line2D))
+				{
+				Point start, end;
+				start = fin.Get(tratto.pStart);
+				end = fin.Get(tratto.pEnd);
+				dc.DrawLine(penne[penna],start,end);
+				}
+
+			if(tratto.GetType() == typeof(Arc2D))
+				{
+				Point2D bassosx, altodx, diag_meta;
+				float alfini, alffin, alfswp;
+
+				diag_meta = new Point2D( ((Arc2D)tratto).Radius, ((Arc2D)tratto).Radius);
+				bassosx = ((Arc2D)tratto).Center - diag_meta;
+				altodx = ((Arc2D)tratto).Center + diag_meta;
+ 
+				Point start, end, center, bsx, adx;
+				start = fin.Get(tratto.pStart);
+				end = fin.Get(tratto.pEnd);
+				center = fin.Get( ((Arc2D)tratto).Center);
+				bsx = fin.Get(bassosx);
+				adx = fin.Get(altodx);
+				int xm,ym,xM,yM;
+				xm = Math.Min(bsx.X, adx.X);
+				xM = Math.Max(bsx.X, adx.X);
+				ym = Math.Min(bsx.Y, adx.Y);
+				yM = Math.Max(bsx.Y, adx.Y);
+
+				Rectangle rct = new Rectangle(new Point(xm,ym), new Size(xM-xm,yM-ym));
+				alfini = (float)(((Arc2D)tratto).AlfaIni*180/Math.PI);
+				alffin = (float)(((Arc2D)tratto).AlfaFin*180/Math.PI);
+				
+				if(alfini < 0.0)
+				    alfini = 360.0F + alfini;
+				if(alffin < 0.0)
+				    alffin = 360.0F + alffin;			// alfaini e alfafin corretti e concordi
+
+				if(alffin >= alfini)					// calcolo sweep
+					alfswp = alffin - alfini;
+				else
+					alfswp = 360.0F-alfini + alffin;
+
+				Pen grigio = new Pen(Color.Gray,0);
+				dc.DrawArc(penne[penna],rct,alfini,alfswp);
+				}
+			#endif
+
+
+
+
+
+		///// <summary>
+		///// TEST in CorpoOttico in Ottica.cs
+		///// </summary>
+		///// <param name="rIn"></param>
+		///// <param name="ambiente"></param>
+		///// <returns></returns>
+		//private Raggio CalcolaRaggio(Raggio rIn, MaterialeOttico ambiente) 
+		//    {
+		//    Raggio rout = null;
+		//    if(ambiente==null)									// controlli iniziali
+		//        return rout;
+		//    Intersection fint = TrovaIntersezione(rIn);	// Trova prima intersezione
+		//    if(fint != null)
+		//        {
+		//        List<Contorno> lc = Belongs(fint.p);			// Trova i contorni cui appartiene la prima intersezione
+		//        if(lc.Count > 2)								// Se piu` di due tratti: errore
+		//            throw new Exception("Intersezione unica di un raggio con piu` di due tratti, in CalcolaRaggio()");
+		//        if(lc.Count == 2)								// Se due tratti: su vertice
+		//            {
+		//            if(Tangenti(lc[0].Tratto, lc[1].Tratto))	// Se tangenti, considero intersezione su uno dei due, equivalente
+		//                {
+		//                if(lc[0].Stato != lc[1].Stato)			// Se hanno uno stato superficiale diverso, elimina il raggio
+		//                    {
+		//                    lc.Clear();
+		//                    }
+		//                else									// altrimenti
+		//                    lc.Remove(lc[1]);					// elimino l'ultimo contorno
+		//                }
+		//            }
+		//        if(lc.Count == 1)								// Se una sola intersezione
+		//            {
+		//            Point2D versoreIn = rIn.Vector();			// Versori entrante (Raggio gia` normalizzato) e normale.
+		//            Point2D versoreNorm = Function2D.VersorOut(fint.p, lc[0].Tratto, rIn.Point(fint.t1 - dimcar*FrazioneEpsilon));
+		//            switch(lc[0].Stato)
+		//                {
+		//                case StatoSuperficie.Opaca:
+		//                    {
+		//                    // Non fa nulla, raggio assorbito, nessun raggio in uscita
+		//                    break;
+		//                    }
+		//                case StatoSuperficie.Riflettente:
+		//                    {
+		//                    rout = new Raggio(new Line2D(fint.p, Ottica.Riflesso(versoreIn, versoreNorm), true));
+		//                    rout.CorpoAttuale = rIn.CorpoAttuale;
+		//                    break;
+		//                    }
+		//                case StatoSuperficie.Trasparente:
+		//                    {
+		//                    MaterialeOttico co_in, co_out;		// Corpi ottici del raggio in ingresso ed uscita
+		//                    co_in = rIn.CorpoAttuale;
+		//                    if(co_in == this.Materiale)			// Se il raggio entrante si trova nel corpo ottico
+		//                        {
+		//                        co_out = ambiente;				// quello uscente nell'ambiente
+		//                        }
+		//                    else								// se no, da ambiente...
+		//                        {
+		//                        co_out = this.Materiale;		// a corpo attuale
+		//                        }
+		//                    Point2D vrifr = Ottica.Rifratto(versoreIn, versoreNorm, co_in.nRifrazione,  co_out.nRifrazione);
+		//                    if(vrifr != null)
+		//                        {
+		//                        rout = new Raggio(new Line2D(fint.p, vrifr, true));
+		//                        // throw new Exception("Manca determinazione se il raggio parte dall'esterno o dall'interno, per scegliere n1->n2 o n2->n1 ");
+		//                        rout.CorpoAttuale = co_out;
+		//                        }
+		//                    break;
+		//                    }
+		//                }
+		//            }
+		//        }
+		//    return rout;
+		//    }
+
+
+______________________________________________________________________________
+Materiale ottico
+formulazione errata, indice di rifrazione lineare a tratti.
+
+public class MaterialeOttico		: OggettoOttico 
+		{
+		#pragma warning disable 1591
+		public static readonly double n_vuoto = 1.0;
+		public static readonly string nome_vuoto = "Vuoto";
+		protected List<Point2D> nn_;
+		#warning Verificare le funzioni per l'indice di rifrazione al variare della lunghezza d'onda
+		#pragma warning restore 1591
+		/// <summary>
+		/// Verifica e corregge 
+		/// </summary>
+		public override void Validate()
+			{
+			foreach(Point2D pn in nn_)
+				{
+				if(pn.y <= Double.Epsilon)
+					pn.y = n_vuoto;
+				}
+			if(nn_.Count < 1)
+				nn_.Add(new Point2D(1.0, n_vuoto));
+			bValid = true;
+			}
+		/// <summary>
+		/// Indice di rifrazione (semplice)
+		/// </summary>
+		public double nRifrazione 
+			{
+			get	{
+				return nn_[0].y;
+				}
+			set	{
+				nn_.Clear();
+				nn_.Add(new Point2D(1.0, value));
+				Validate();
+				}
+			}
+		/// <summary>
+		/// Restituisce l'indice di rifrazione, se unico
+		///	oppure NaN in tutti gli altri casi
+		/// </summary>
+		/// <returns></returns>
+		public double GetnRifrazione()
+			{
+			if(nn_.Count == 1)
+				return nn_[0].y;
+			else
+				return Double.NaN;
+			}
+		/// <summary>
+		/// Restituisce l'indice di rifrazione ad una lunghezza d'onda
+		/// oppure NaN se la lunghezza d'onda e` fuori dai limiti
+		/// </summary>
+		/// <param name="lambda">Lunghezza d'onda in nm (1e-9 m)</param>
+		/// <returns></returns>
+		public double GetnRifrazione(double lambda)
+			{
+			return Function2D.InterpolazioneLineare(nn_,lambda);
+			}
+		/// <summary>
+		/// Aggiunge un indice di rifrazione
+		/// per una lunghezza d'onda
+		/// </summary>
+		/// <param name="lambda">Lunghezza d'onda in nm (1e-9 m)</param>
+		/// <param name="n">Indice di rifrazione</param>
+		public void AddnRifrazione(double lambda, double n)
+			{
+			nn_.Add(new Point2D(lambda, n));
+			}
+		/// <summary>
+		/// Costruttore
+		/// </summary>
+		public MaterialeOttico() : base(nome_vuoto) 
+			{
+			nn_ = new List<Point2D>();
+			nn_.Add(new Point2D(1.0, n_vuoto));
+			}
+		/// <summary>
+		/// Costruttore
+		/// </summary>
+		/// <param name="Nome"></param>
+		/// <param name="Nrifrazione"></param>
+		public MaterialeOttico(string Nome, double Nrifrazione) : base(Nome) 
+			{
+			nn_ = new List<Point2D>();
+			nn_.Add(new Point2D(1.0, Nrifrazione));
+			this.nRifrazione = Nrifrazione;
+			}
+		/// <summary>
+		/// Plot (non fa nulla)
+		/// </summary>
+		/// <param name="dc"></param>
+		/// <param name="fin"></param>
+		/// <param name="penna"></param>
+		public override void Plot(Graphics dc, Finestra fin, Pen penna) 
+			{}				// Non fa nulla
+		/// <summary>
+		/// Aggiunge alla display list (non fa nulla)
+		/// </summary>
+		/// <param name="displaylist"></param>
+		/// <param name="penna"></param>
+		public override void Display(DisplayList displaylist, int penna) 
+			{}			// Non fa nulla
+		/// <summary>
+		/// Restituisce prima intersezione positiva con una linea (sempre null)
+		/// </summary>
+		/// <param name="lin"></param>
+		/// <returns></returns>
+		public override Intersection TrovaIntersezione(Line2D lin)
+			{
+			return null;
+			}
+		/// <summary>
+		/// Restituisce la lista di raggi (sempre nulla, non interagisce)
+		/// </summary>
+		/// <param name="rIncidente"></param>
+		/// <param name="ambiente"></param>
+		/// <returns></returns>
+		public override List<Raggio> CalcolaRaggi(Raggio rIncidente, MaterialeOttico ambiente)
+			{
+			return new List<Raggio>();
+			}
+		}

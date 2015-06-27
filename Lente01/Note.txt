@@ -1,0 +1,317 @@
+﻿
+
+------------------------------------------------------
+
+LAVORI IN CORSO E DA INIZIARE
+
+------------------------------------------------------
+
+STABILIRE FUNZIONI INDISPENSABILI:
+	1.	Trasformazione per oggetti: non indispensabile. Sufficiente estrarre i punti e ricreare nuovi oggetti con i punti traslati/ruotati.
+	2.	Punto interno: non indispensabile. Sufficiente valutare il numero di intersezioni (e se intersezione doppia o su vertice) e partire da punto esterno.
+	6.	Clipping: si`, semplificato: se un arco o un segmento sono di certo fuori da una finestra.
+
+Lettura file di dati e moduli del programma	
+	-	Studiare a fondo un formato ed una classe unificati per lettura e scrittura su file in formato testo.
+	-	Si devono poter leggere e scrivere tutti i dati di ogni OggettoOttico.
+	->	ITextFile interfaccia comune per i soli OggettiOttici che possono essere salvati su file di testo.
+	-	Valutare se scrivere tutti i dati su una linea oppure su piu` linee.
+		Su piu` linee e` piu` semplice da scrivere, ma su linea unica e` piu` pratico per la lettura da file: una linea per oggetto.
+		Opportuno includere i nomi dei parametri, anche se la linea di testo risulta piu` lunga.
+	-	Considerare che il file di testo deve poter esser modificato a mano, per usare in futuro due moduli,
+		uno per scrivere il modello ed uno per calcolarlo.
+	-	Considerare di leggere un file di dati con lente, specchio ecc... e di scrivere un modello per il calcolo in
+		cui lenti e specchi sono convertiti in oggetti ottici.
+	-	Oggetti che devono poter esser salvati e caricati da file. Della lista completa di oggetti,
+		sono necessari sia quelli per il file di input (Lente, Specchio...), crato dal primo modulo,
+		che quelli per il file di output (OggettoOttico...), utilizzati dal programma di calcolo.
+	-	Il primo modulo puo` gestire solo fasci collimati per test di specchi o lenti.
+		Il secondo deve gestire tutti gli oggetti in posizione qualunque.
+			input	output	Nome				Contenente:
+		-	x		x		Ambiente			MaterialeOttico List<OggettoOttico>
+		-	()		()		Contorno			Tratto StatoSuperficie bool
+		-			o		CorpoOttico			LinkedList<Contorno> MaterialeOttico double
+		-	o				Lente				double TipoSuperficie MaterialeOttico (et=4 n=1,8 d=25 tipo1=1 r1=100 tipo2=-1 r2=60)
+		-	o				Specchio (in futuro)
+		-	o				Schermo (in futuro)
+		-	o				Diaframma (in futuro)
+		-	o		o		MaterialeOttico		double double[] bool
+		-			o		OggettoOttico		string bool
+		-					Ottica				
+		-					Raggio				MaterialeOttico double
+		-	o		o		SorgenteOttica		Point2D double
+		-					Line2D				...
+		-					Arc2D				...
+		-	x				Transform2D			...
+		-					Tratto				...
+		-					Point2D				...
+	-	Per il caricamento dei dati da file e per il salvataggio, usare sempre i nomi quali riferimenti ad altri oggetti
+		(es. Lente con riferimento al materiale ottico).
+		Attenzione agli oggetti geometrici condivisi (per es. un Point2D comune a due tratti).
+	-	Nota importante: gli oggetti geometrici semplici non necessitano di essere salvati come oggetti a se` stanti,
+		non essendo derivati da oggetti ottici.
+
+DisplayList e DisplayListElement
+		Funzioni per il disegno a video. Per ora implementazione approssimativa.
+	-	Arc2D errato disegno (alfa non corretto) se finestra con scala anisotropica
+	-	In ogni caso poco estendibile in caso di spline o altre curve.
+	-	Valutare se ciclo che restituisce un certo numero di punti di una curva.
+	-	Elementi della displayList: devono poter essere attivati o disattivati e mostrati o nascosti in base a funzione di Clipping (approssimato).
+
+Arc2D.cs
+	V	Belongs													[ DA PROVARE ]
+	V	public Arc2D(estremi e centro o terzo punti)			[ DA COMPLETARE la parte con tre punti ]
+																	
+Line2D.cs
+	V	Belongs													[ DA PROVARE ]
+
+CorpoOttico.cs
+	-	Dati vari per distinguere interno da esterno
+	-	Gestione di superfici a contatto di corpi ottici diversi.
+
+	Funzioni e proprieta`
+		-	Check punto interno			
+		-	Check RegioneUnica
+		V	CheckVertice(Point2D pVertice):							[ CONTROLLARE ]
+		V	Tangenti(Tratto tr1, tr2):								[ CONTROLLARE ]
+		Calcolo rifrazione / riflessione / assorbimento
+		-	Necessaria funzione che discrimini se un punto e` interno al corpo ottico.
+			Interno(Point2D p).
+				Ciclo su un angolo alfa, contatore generale c1 e contatore di raggi c2
+					Crea una linea per p con angolo alfa casuale
+					Se (non flag vertice) e (c1 < 1000) e (c2 > 0)
+					Lo proietta e trova le intersezioni positive (eliminate le intersezioni multiple)
+					Conta le intersezioni con un ciclo:
+						Verifica se il punto p dell'intersezione e` un vertice
+							se si`, imposta flag ed esce dal ciclo
+						somma 1 se intersezione normale, 2 se tg2
+			
+Lente
+	-	Unificare con specchio (o creare per esso nuova classe).
+	-	Attenzione: usare sempre le versioni di costruttori di Line2D e Arc2D che mantengono i punti di estremo.
+		Ad essi vanno applicate prima rotazione e traslazione. POI, con i nuovi punti, vanno creati gli oggetti ottici.
+	-	DERIVARLA DA OGGETTO OTTICO, IN MODO DA REGISTRARLA IN Ambiente.
+	-	Creare, nel programma base, due oggetti Ambiente: uno local (per studio singolo oggetto) ed uno world (per posizionare piu` oggetti).
+
+SorgenteOttica
+	Creare nuovo oggetto (come Lente, Specchio o simile) per generare un fascio ottico, contenente tutti i dati comuni (colore, ecc...),
+	utilizzabile come SorgentePuntiforme e SorgenteCollimata.
+	SorgenteOttica
+	-	Dati comuni
+		-	Lunghezza d'onda
+	Sorgente puntiforme
+		-	Arc2D (contiene centro, diametro e angolo di apertura o circonferenza completa
+	Sorgente collimata
+		-	Centro
+		-	Versore
+		-	Diametro
+		-	Divergenza
+	Piu` pratico unire tutto in una classe, benche` un po' piu` complesso.
+
+Function2D.cs
+	Funzioni varie:
+		-	Distanza punto - Arco
+		-	Intersezione tra due Arc2D
+		-	Provare INTERSEZIONE tra due linee coincidenti
+		-	Dopo aver completato le funzioni con le intersezioni, unificare le funzioni di intersezione
+			a due generici elementi Tratto - Tratto e nascondere tutte le altre, di fatto inutili.
+
+Altre funzioni e oggetti in Function2D
+		?	Derivata da interfaccia transform. Da valutare, probabilmente inutile.
+		?	Lista di linee ed archi (farle derivare da classe base). O creare nuovo oggetto. Da valutare, probabilmente inutile.
+		x	Punto interno (come verifico ? Devono esserci numeri pari di intersezioni verso t+ e t- (le tangenze contano doppio).
+			Al momento non e` indispensabile all'algoritmo di ray tracing, purche` si parta da un punto certamente esterno:
+			si devono contare le intersezioni (occhio alle intersezioni doppie, sia per gli archi che per linee contigue).
+			
+__________________________________________________________________________________________________________________________
+			
+Struttura di base
+	V	Inserire in Line2D, Arc2D ecc... solo i riferimenti ai Point2D, in modo da poter condividere i punti (1)
+	x	Scrivere funzioni (interfaccia...) per creare una lista o meglio aggiungere ad una lista passata come parametro
+		i punti significativi di Line2D, Arc2D... per poter traslare o ruotare o scalare in modo uniforme tutti i punti insieme.
+		No, scelta interfaccia per Plot e funzioni nei singoli oggetti.
+
+Per tutti gli oggetti
+	x	Far derivare tutti gli oggetti da un'interfaccia che contenga la funzione transform(matrice). Probabilmente inutile.
+	x	Modificarli aggiungendo la funzione di trasformazione generica (che contiene trasformazione dei punti + ricalcolo eventuale).
+	x	Problema: se piu` oggetti condividono lo stesso punto, trasformazione e ricalcolo devono essere rivisti.
+		In ogni caso non e` possibile al momento garantire che i punti passati come argomento ai costruttori vengano mantenuti come oggetti.
+		Per cui, per le trasformazioni, far sempre creare dei punti nuovi.
+		Oppure, prima di creare gli oggetti (linee, archi) di un gruppo (per es. lente, poligono ecc..), applicare la trasformazione ai punti.
+	x	Necessario anche: verificare che una trasformazione si rigida (solo traslazione e/o rotazione), in modo da non alterare la geometria,
+		e poter trasformare i punti senza doverli ricalcolare (pero` comunque necessario ricalcolo degli angoli)
+	
+Interfaccia per plot
+	-	Aggiungere proprieta` 'divisioni' con numero di punti per rappresentare una figura
+	-	Studiare enumerator e interfaccia per restituire serie di punti appartenenti alla figura
+		oppure funzione che restituisce una lista di punti
+	-	in alternativa, piu` pratico da utilizzare, impostare non il numero di punti ma la distanza.
+		Sistema pero` piu` difficile da scrivere e con potenziali errori (troppi punti).
+		Sembrano piu' convenienti il numero di divisioni ed una lista di punti. Per il plot provare con spline o simili
+		per rappresentare archi.
+	-	Studiare interfaccia con funzioni per il plot (passare delegate a funzione di plot?) oppure non fare nulla
+		ed usare la lista di punti
+	
+Interfaccia per trasformazioni	
+	?	Aggiungere, per tutte le figure (interfaccia?), funzioni di ricalcolo in base ai soli punti.
+	?	Aggiungere nella stessa interfaccia una funzione di gestione di trasformazione dei punti (per rotazioni, traslazioni e scale uniformi)
+	?	Al momento non inserire trasformazioni che distorcano archi e cerchi.
+
+
+Altri sviluppi meno urgenti
+	-	Piuttosto complessa una gestione completa, per richiedere i ricalcoli degli oggetti ogni volta che un punto viene modificato.
+		V	Da verificare per Line2D (controllare lunghezza e altro)
+		V	Da modificare per Arc2D: alcuni costruttori mantengono i punti, altri ne creano di nuovi.
+			Meglio costruttori con i 3 punti + funzioni di ricalcolo, pero` rischio di non avere visibilita` o accesso ai punti.
+			In alternativa funzioni di utilita` che restituiscono (o che usano in ref) dei punti, ricalcolandoli.	
+
+			
+Note
+
+(1) La modifica di un punto non richiama automaticamente il ricalcolo di arco e linea, sarebbe piu` complesso da gestire.
+	Sarebbero come minimo necessari un contatore di utilizzo, un flag che indica se e` modificato, ed una lista di puntatori agli oggetti che lo utilizzano.
+	Cio` dovrebbe esser in una classe base, comune a punto, linea, arco ecc... Vedere il progetto Telaio.
+	
+	
+------------------------------------------------------
+
+LAVORI TERMINATI
+
+------------------------------------------------------
+Intersection
+	V	Struct di supporto. Variabili tutte pubbliche.
+	V	Aggiunti due riferimenti ai tratti che si intersecano.
+	V	Aggiornare tutte le funzioni che usano Intersection
+
+
+Materiale e raggio
+	V	Considerare le lunghezze d'onda C F e D per il visibile	e lasciare la possibilita di avere lambda in Raggio e n(lambda) in Materiale,
+		a sua volta in CorpoOttico.
+			
+Function2D.cs
+	Funzioni varie:
+		V	Eliminato Vector2D e integrato in Line2D
+		V	Distanza tra due Point2D 
+		V	Distanza tra Point2D e Line2D
+		V	Distanza minima (nearest) a lista di punti
+		V	Proiezione di un punto su una retta
+		V	Proiezione di un punto su un arco
+		V	Distanza minima (nearest) ad un segmento o retta (proiezione)
+		V	Distanza minima (nearest) ad un arco o circonferenza (proiezione)
+		V	Intersezione tra due Line2D
+		V	Intersezione tra Line2D e Arc2D
+		V	Normale uscente per un punto di Line2D
+		V	Normale uscente per un punto di Arc2D
+		V	Nearest() 3 versioni
+		V	Projection() 2 versioni
+		V	LineOut() 4 versioni
+		V	VersorOut() 4 versioni
+		V	Aggiungere funzioni analoghe per oggetti Tratto generico
+	V	Modificare le funzioni Intersection in modo che tutte restituiscano una lista di intersezioni			
+	V	Usare struct Intersezione, con riferimento al punto e due double (parametri di linea e/o arco)
+
+
+Lente
+	V	Modificare costruttori e funzioni in modo da sfruttare le intersezioni
+	V	Lente (poi Specchio o altro) sono anch'essi Oggetti Ottici.
+
+Raggio
+		V	Derivare da Line2D
+		V	Verificare subito validita` delle Function2D.
+		V	Imporre normalizzazione (per avere le distanza in t1).
+		V	Includere materiale in cui si trova
+		V	Lunghezza d'onda
+
+CorpoOttico.cs
+	V	Lista di oggetti Contorno corrispondenti ai Tratti (Line2D,Arc2D...) ed alle caratteristiche (speculare, opaco, trasparente...)
+	V	Coefficiente di rifrazione
+	V	Aggiungere dimensioni caratteristiche e funzioni per il calcolo, in Validate(). Considerare
+		differenze tra max e min x e y, abs, prodotto, radice. Poi fattore moltiplicativo (1/100 o 1/1000) epsilon.
+		Necessario per trovare punto dallo stesso lato del raggio entrante e punto per verso uscente.
+	V	Per il calcolo dei raggi, necessario verificare che Line2D sia Normalized. Si`, uso Raggio. Poi usare la dimensione caratteristica
+		ed il fattore epsilon per arretrare nel raggio (parametro t - eps). Usare Ray (normalizzato)
+	Funzioni e proprieta`
+		V	Validate
+		V	Check numero tratti
+		V	Check Connesso
+		V	Check Validi
+		V	Check Rifrazione
+		V	Add
+		V	TrovaIntersezioniPositive
+		V	EliminaIntersezioniDoppie
+		x	Funzione per punto rispetto a Tratto che discrimina semipiano o regione interna o esterna.
+			Possibile con retta, ma non con cerchio. L'unico sistema e` l'intersezione linea - Tratto.
+		V	Contorno, restituisce il contorno associato al tratto.
+		Calcolo rifrazione / riflessione / assorbimento
+		V	Se intersezione normale: la mantiene. Se tangente: applico rifrazione.
+			Se su vertice: elimino il raggio se il vertice e` spigoloso (controllo delle normali per i due tratti).
+			In ogni caso devo determinare il Tratto cui fare riferimento.
+		V	Raggio CalcolaRaggio(Raggio rIn). Prima versione.
+		V	CalcolaRaggi(...). Restituisce lista di raggi con estensioni.
+
+Ottica.cs			
+	Rifrazione e riflessione, nel namespace Engineering
+		V	Calcolo versore riflesso
+		V	Calcolo versore rifratto, oppure (0,0) se riflessione totale.
+	Materiali Ottici
+		V	Aggiunta classe interna static, lettura da file di testo nel costruttore
+
+OggettoOttico
+	V	Classe base astratta da cui derivare tutti gli oggetti ottici, posizionabili in Ambiente, come:
+		CorpoOttico, SorgenteOttica, MezzoOttico... (Occhio: il Raggio non e` un oggetto ottico, e deriva da un'altra classe). 
+	V	Utilizzare la classe MaterialeOttico, cui aggiungere il coefficiente di rifrazione
+
+MaterialeOttico
+	V	Calcolo indice di rifrazione fisso o variabile (serie di Laurent)
+	
+Ambiente
+	V	Aggiungere la classe Ambiente in cui inserire tutti gli oggetti.
+	V	Controllare se nomi duplicati
+	V	Ricerca per nome
+	V	Lista nomi
+	V	Funzione principale calcolo raggio
+
+Point2D.cs
+	V	Versor restituire Point2D(0,0) se fallisce normalizzazione (non null)
+
+Arc2D.cs
+	V	Completare funzione Belongs(alfa) di Arc2D
+	V	Provarla
+	V	Completare funzione Belongs(Point2d) di Arc2D
+	V	Provarla
+	V	Aggiungere funzione di ricalcolo in base ai soli punti (inizio, fine e centro).
+	V	Rivedere costruttori Arc2D(...) e Validate(): il calcolo dei punti iniziale e finale NON deve utilizzare alfaIni e alfaFin
+		se sono noti pIni e pFin, se no si introducono errori di approssimazione notevoli.
+	V	Risolvere il problema del calcolo della coincidenza di punti, su Arc2D eliminati i calcoli trigonometrici (imprecisi),
+	V	Ripristinare la Arc2D.coincidencedistance (temporaneamente portata a 1e-15 per un problema di precisione).
+	V	Aggiunto ToString()
+	V	Plot e Display.
+																	
+Line2D.cs
+	V	Varie aggiunte (Vettore, versore...)
+	V	Plot e Display.	
+
+ITratto.cs
+	V	Interfaccia per Tratto e derivate, contiene:
+			V pStart e pEnd, proprieta` get per accedere ai punti iniziali e finali
+			V altro...
+Tratto.cs
+	V	Classe base per gli oggetti di contorno (Line2D, Arc2D...)
+	V	Classe derivata da ITratto e astratta, implementa come abstract quanto richiesto dell'interfaccia:
+		deve esser ridefinito con override nelle classi derivate
+
+Contorno.cs
+	V	Classe per i segmenti di contorno, contiene:
+		V	Elemento Tratto 
+		V	Tipo di superficie (trasparente, opaco, riflettente...)
+		V	Flag superficie a contatto (ignora n rifrazione del mezzo globale)
+
+
+V	Rivedere le classi. Meglio se interfaccia IPlot con funzioni specifiche per plottare e aggiugnere elementi alla display list.
+	Tutti gli oggetti Tratto, CorpoOttico, Raggio, SorgenteOttica, ecc... sono derivati dall'interfaccia IPlot.
+
+Transform2D	
+	V	Calcolo matrice di rotazione con angolo
+	V	Calcolo matrice di traslazione con Point2D, Line2D, Vector2D
+	V	Calcolo matrice di rototraslazione
+	V	Calcolo di matrice di rotazione attorno ad un punto = traslazione negativa, rotazione, traslazione positiva
